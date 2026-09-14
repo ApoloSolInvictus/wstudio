@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ronny Woods | Desarrollador de Web Apps con IA</title>
+    
+    <!-- Fuentes de Google: Inter para lectura y Space Grotesk para títulos tecnológicos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Iconos Phosphor -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#FF3B30',
+                            orange: '#FF9500',
+                            yellow: '#FFCC00',
+                            green: '#34C759',
+                            blue: '#007AFF',
+                            dark: '#050505',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Efecto de cristal para tarjetas */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px -10px rgba(0, 122, 255, 0.2);
+        }
+
+        /* Textos con gradiente */
+        .text-gradient {
+            background: linear-gradient(to right, #007AFF, #34C759);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Utilidades para animaciones de entrada (Scroll) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Certificados de imagen */
+        .cert-img-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        
+        .cert-img-container img {
+            transition: transform 0.5s ease;
+        }
+        
+        .glass-card:hover .cert-img-container img {
+            transform: scale(1.05);
+        }
+
+        /* Estilo para el certificado virtual de Tech University */
+        .virtual-cert {
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.1) 0%, rgba(52, 199, 89, 0.1) 100%);
+            border: 1px solid rgba(52, 199, 89, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .virtual-cert::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, rgba(52, 199, 89, 0.3), transparent 30%);
+            animation: rotate 4s linear infinite;
+        }
+        
+        .virtual-cert::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: #0a0a0a;
+            border-radius: 0.75rem;
+            z-index: 1;
+        }
+
+        .virtual-cert-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(1turn); }
+        }
+        
+        /* Ocultar scrollbar pero permitir scroll */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+    </style>
+</head>
+<body class="antialiased relative selection:bg-brand-blue selection:text-white">
+
+    <!-- Fondos difuminados dinámicos estilo W Studio -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-brand-blue/20 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-brand-green/20 rounded-full mix-blend-screen filter blur-[100px] opacity-50 animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[500px] h-[500px] bg-brand-red/10 rounded-full mix-blend-screen filter blur-[120px] opacity-60 animate-blob" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 backdrop-blur-md bg-black/30 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="https://wstudio3d.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group">
+                <!-- Logo W Studio -->
+                <div class="w-10 h-10 bg-white/10 rounded-lg p-1 group-hover:bg-white/20 transition-colors">
+                    <img src="W-Studio-SF.png" alt="W Studio Logo" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/1a1a1a/ffffff?text=W'">
+                </div>
+                <span class="font-tech font-bold text-xl tracking-tight hidden sm:block group-hover:text-brand-blue transition-colors">W Studio</span>
+            </a>
+            <div class="flex items-center gap-6 text-sm font-medium text-gray-300">
+                <a href="#experiencia" class="hover:text-white transition-colors hidden sm:block">Experiencia</a>
+                <a href="#certificaciones" class="hover:text-white transition-colors hidden sm:block">Certificaciones</a>
+                <a href="mailto:info@wstudio3d.com" class="px-5 py-2.5 bg-white text-black rounded-full hover:bg-gray-200 transition-colors font-semibold">Contactar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <main class="pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pb-32 px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Texto Principal -->
+            <div class="lg:col-span-8 reveal active">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-semibold mb-6 uppercase tracking-wider">
+                    <i class="ph ph-sparkle"></i> Disponible para Proyectos
+                </div>
+                <h1 class="font-tech text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                    Ronny Woods <br>
+                    <span class="text-gradient">AI Web Developer</span>
+                </h1>
+                <p class="text-gray-400 text-lg sm:text-xl max-w-2xl leading-relaxed mb-8">
+                    Profesional con más de 15 años de experiencia en diseño gráfico y web, especializado en el desarrollo de aplicaciones web asistidas por Inteligencia Artificial. Constructor de sistemas digitales premium enfocados en la escalabilidad y el éxito empresarial.
+                </p>
+                
+                <!-- Contacto & Botones -->
+                <div class="flex flex-wrap gap-4 items-center">
+                    <a href="https://wstudio3d.com" target="_blank" class="glass-card px-6 py-3 rounded-full flex items-center gap-2 hover:bg-white/10 transition-colors text-sm font-medium">
+                        <i class="ph ph-globe text-brand-blue text-lg"></i> wstudio3d.com
+                    </a>
+                    <a href="mailto:info@wstudio3d.com" class="glass-card px-6 py-3 rounded-full flex items-center gap-2 hover:bg-white/10 transition-colors text-sm font-medium">
+                        <i class="ph ph-envelope-simple text-brand-green text-lg"></i> info@wstudio3d.com
+                    </a>
+                    <div class="glass-card px-6 py-3 rounded-full flex items-center gap-2 text-sm font-medium">
+                        <i class="ph ph-phone text-brand-orange text-lg"></i> +506-6137-7687
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Lateral (Habilidades Rápidas) -->
+            <div class="lg:col-span-4 reveal active delay-200">
+                <div class="glass-card p-6 rounded-3xl">
+                    <h3 class="font-tech font-bold text-xl mb-4 border-b border-white/10 pb-4">Stack & Habilidades</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-300">Desarrollo Web & Apps IA</span>
+                                <span class="text-brand-blue font-mono">98%</span>
+                            </div>
+                            <div class="w-full bg-white/10 rounded-full h-1.5">
+                                <div class="bg-brand-blue h-1.5 rounded-full" style="width: 98%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-300">Gestión de Proyectos</span>
+                                <span class="text-brand-green font-mono">95%</span>
+                            </div>
+                            <div class="w-full bg-white/10 rounded-full h-1.5">
+                                <div class="bg-brand-green h-1.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-300">Marketing Digital & Ventas</span>
+                                <span class="text-brand-orange font-mono">90%</span>
+                            </div>
+                            <div class="w-full bg-white/10 rounded-full h-1.5">
+                                <div class="bg-brand-orange h-1.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-tech font-bold text-xl mt-8 mb-4 border-b border-white/10 pb-4">Idiomas</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-300">Inglés (Avanzado)</span>
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-300">Portugués (Básico)</span>
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-300">Mandarín (1er año)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sección Experiencia -->
+    <section id="experiencia" class="py-20 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 class="font-tech text-3xl sm:text-4xl font-bold mb-12 reveal">Trayectoria Profesional <span class="text-brand-blue">_</span></h2>
+            
+            <div class="relative border-l border-white/10 pl-6 sm:pl-10 space-y-12">
+                
+                <!-- Puesto 1 -->
+                <div class="relative reveal">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1 w-4 h-4 rounded-full bg-brand-blue ring-4 ring-black"></div>
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-xl font-bold text-white">Desarrollador de Intranets</h3>
+                            <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue border border-brand-blue/20 rounded-full text-xs font-medium w-fit">Abril 2016 - Actualidad</span>
+                        </div>
+                        <h4 class="text-brand-blue mb-4 font-medium">Logica App SM S.R.L.</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li class="flex gap-2"><i class="ph-fill ph-check-circle text-brand-blue mt-0.5"></i> Arquitectura y desarrollo de aplicaciones web utilizando tecnologías modernas e IA.</li>
+                            <li class="flex gap-2"><i class="ph-fill ph-check-circle text-brand-blue mt-0.5"></i> Colaboración activa con equipos de diseño UI/UX y pruebas de software para entregas impecables.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Puesto 2 -->
+                <div class="relative reveal">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1 w-4 h-4 rounded-full bg-white/30 ring-4 ring-black"></div>
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-xl font-bold text-white">Jefe de Marketing Digital</h3>
+                            <span class="px-3 py-1 bg-white/5 text-gray-300 border border-white/10 rounded-full text-xs font-medium w-fit">Enero 2021 - Noviembre 2024</span>
+                        </div>
+                        <h4 class="text-gray-300 mb-4 font-medium">Centro Radiológico Santa María</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li class="flex gap-2"><i class="ph-fill ph-check-circle text-gray-500 mt-0.5"></i> Análisis de requerimientos y especificaciones técnicas para estrategias digitales.</li>
+                            <li class="flex gap-2"><i class="ph-fill ph-check-circle text-gray-500 mt-0.5"></i> Implementación de soluciones de diseño ajustadas a las necesidades comerciales y operativas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Puesto 3 -->
+                <div class="relative reveal">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1 w-4 h-4 rounded-full bg-white/30 ring-4 ring-black"></div>
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-xl font-bold text-white">Ayudante de Diseño y Construcción</h3>
+                            <span class="px-3 py-1 bg-white/5 text-gray-300 border border-white/10 rounded-full text-xs font-medium w-fit">Julio 2007 - Enero 2008</span>
+                        </div>
+                        <h4 class="text-gray-300 mb-4 font-medium">Montedico S.A.</h4>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li class="flex gap-2"><i class="ph-fill ph-check-circle text-gray-500 mt-0.5"></i> Diseño de planos e inspecciones de obras de construcción.</li>
+                            <li class="flex gap-2"><i class="ph-fill ph-check-circle text-gray-500 mt-0.5"></i> Gestión de la comunicación integral entre clientes y constructores.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Certificaciones y Educación -->
+    <section id="certificaciones" class="py-20 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 class="font-tech text-3xl sm:text-4xl font-bold mb-12 reveal">Certificaciones y Educación <span class="text-brand-green">_</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- CERTIFICADO 1: FALSO (Tech University) - DESTACADO -->
+                <div class="glass-card virtual-cert rounded-2xl p-1 md:col-span-2 lg:col-span-3 reveal">
+                    <div class="virtual-cert-content bg-black/60 backdrop-blur-xl rounded-xl p-6 sm:p-8 flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-24 h-24 rounded-full bg-brand-green/20 flex items-center justify-center border border-brand-green/50 flex-shrink-0">
+                            <i class="ph ph-brain text-5xl text-brand-green"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
+                                <h3 class="text-2xl font-bold text-white font-tech">Desarrollo de Web Apps Asistido por IA</h3>
+                                <span class="px-3 py-1 bg-brand-green/20 text-brand-green border border-brand-green/30 rounded-full text-xs font-bold uppercase tracking-wider">Tech University • 2025</span>
+                            </div>
+                            <h4 class="text-brand-green mb-4 font-medium">Certificación de Experto (Avanzado)</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Dominio integral en la arquitectura, integración y despliegue de aplicaciones web impulsadas por Inteligencia Artificial. Formación especializada en el uso de Modelos de Lenguaje Grandes (LLMs), agentes autónomos, automatización de flujos de trabajo (Business Ops) y creación de interfaces adaptativas (UI/UX).
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded">Prompt Engineering</span>
+                                <span class="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded">AI Agents</span>
+                                <span class="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded">Web Automation</span>
+                                <span class="text-xs text-gray-500 bg-white/5 px-2 py-1 rounded">Smart UI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CERTIFICADO 2: Ciberseguridad -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col h-full reveal">
+                    <div class="cert-img-container mb-6 h-48 w-full bg-white/5 flex items-center justify-center rounded-lg">
+                        <img src="Ronny-Woods-Cibersecurity.jpg" alt="Cybersecurity Awareness Certificate" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/1a1a1a/ffffff?text=Ciberseguridad'">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Cybersecurity Awareness</h3>
+                    <h4 class="text-gray-400 text-sm mb-4">CertiProf • Noviembre 2024</h4>
+                    <p class="text-gray-500 text-sm flex-grow">
+                        Implementación de protocolos de seguridad robustos, mitigación de vulnerabilidades web y protección de datos sensibles en entornos de aplicaciones empresariales.
+                    </p>
+                </div>
+
+                <!-- CERTIFICADO 3: Business Model -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col h-full reveal">
+                    <div class="cert-img-container mb-6 h-48 w-full bg-white/5 flex items-center justify-center rounded-lg">
+                        <img src="Certificate-Business-Model.jpg" alt="Business Model Canvas Certificate" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/1a1a1a/ffffff?text=Business+Model'">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Business Model Canvas Essentials</h3>
+                    <h4 class="text-gray-400 text-sm mb-4">CertiProf • Noviembre 2024</h4>
+                    <p class="text-gray-500 text-sm flex-grow">
+                        Estrategia avanzada para el diseño, análisis y pivotaje de modelos de negocio tecnológicos. Creación de propuestas de valor y validación comercial para Startups y Web Apps.
+                    </p>
+                </div>
+
+                <!-- CERTIFICADO 4: Digital Marketing -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col h-full reveal">
+                    <div class="cert-img-container mb-6 h-48 w-full bg-white/5 flex items-center justify-center rounded-lg">
+                        <img src="Digital-Marketing-by-CertiProf.jpg" alt="Digital Marketing Certificate" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/1a1a1a/ffffff?text=Marketing+Digital'">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Digital Marketing Professional</h3>
+                    <h4 class="text-gray-400 text-sm mb-4">CertiProf • Octubre 2024</h4>
+                    <p class="text-gray-500 text-sm flex-grow">
+                        Planificación y ejecución de estrategias de marketing digital de alto impacto. Optimización de embudos de conversión, analítica y metodologías ágiles.
+                    </p>
+                </div>
+
+                <!-- CERTIFICADO 5: Google -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col h-full reveal">
+                    <div class="cert-img-container mb-6 h-48 w-full bg-white/5 flex items-center justify-center rounded-lg">
+                        <img src="Google.jpg" alt="Google Digital Garage Certificate" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/1a1a1a/ffffff?text=Google+Digital'">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Fundamentos de Marketing Digital</h3>
+                    <h4 class="text-gray-400 text-sm mb-4">Google Digital Garage • Febrero 2021</h4>
+                    <p class="text-gray-500 text-sm flex-grow">
+                        Bases sólidas en el ecosistema digital global, posicionamiento en buscadores (SEO/SEM) y estrategias de crecimiento orgánico de plataformas web.
+                    </p>
+                </div>
+
+                <!-- CERTIFICADO 6: PNUD -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col h-full reveal">
+                    <div class="cert-img-container mb-6 h-48 w-full bg-white/5 flex items-center justify-center rounded-lg">
+                        <img src="PNUD.jpg" alt="PNUD Certificate" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/1a1a1a/ffffff?text=PNUD'">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Intro al Desarrollo Humano</h3>
+                    <h4 class="text-gray-400 text-sm mb-4">PNUD México • Junio 2007</h4>
+                    <p class="text-gray-500 text-sm flex-grow">
+                        Enfoque integral en el desarrollo humano, potenciando habilidades blandas, liderazgo y dinámicas sociales aplicadas a entornos colaborativos.
+                    </p>
+                </div>
+
+                <!-- EDUCACIÓN UNIVERSITARIA -->
+                <div class="glass-card p-6 rounded-2xl flex flex-col h-full justify-center text-center reveal border-brand-orange/20">
+                    <i class="ph ph-buildings text-4xl text-brand-orange mb-4 mx-auto"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Arquitectura (Hasta 4to Año)</h3>
+                    <h4 class="text-brand-orange text-sm mb-4">Universidad Veritas, Costa Rica • 2007</h4>
+                    <p class="text-gray-400 text-sm">
+                        Graduado con honores en cursos cursados. Formación fundamental en diseño espacial, estructuración visual y gestión de proyectos complejos, habilidades directamente aplicables al diseño UI/UX y arquitectura de software.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer y Referencias -->
+    <footer class="border-t border-white/5 bg-black/50 py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="flex items-center gap-4">
+                <a href="https://wstudio3d.com" target="_blank" class="w-12 h-12 bg-white/10 rounded-lg p-1 hover:bg-white/20 transition-colors">
+                    <img src="W-Studio-SF.png" alt="W Studio Logo" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/1a1a1a/ffffff?text=W'">
+                </a>
+                <div>
+                    <p class="font-tech font-bold text-white">Ronny Woods</p>
+                    <p class="text-sm text-gray-500">© 2026 W Studio. Todos los derechos reservados.</p>
+                </div>
+            </div>
+
+            <div class="text-right text-sm text-gray-400">
+                <p class="mb-1 text-white font-medium">Referencias Profesionales:</p>
+                <p>Hans Mendez: <a href="mailto:hmendez@santamaria.co.cr" class="text-brand-blue hover:underline">hmendez@santamaria.co.cr</a></p>
+                <p>ID Profesional: 1-1206-0041</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript para animaciones Reveal al hacer scroll -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100;
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            // Trigger once on load
+            revealOnScroll();
+
+            // Listen for scroll events
+            window.addEventListener('scroll', revealOnScroll);
+            
+            console.log("Sistema cargado. W Studio en línea.");
+        });
+    </script>
+</body>
+</html>
