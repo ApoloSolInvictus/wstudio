@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W Studio | Diseño Web Profesional en Costa Rica</title>
+    <meta name="description" content="Sitios web profesionales para emprendedores en Costa Rica por solo ₡100,000. Incluye dominio. ¡Empieza hoy con W Studio!">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons (para iconos modernos) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind Config Customization -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'w-blue': '#2563eb',     // Azul principal
+                        'w-dark': '#0f172a',     // Fondo oscuro
+                        'w-accent': '#10b981',   // Acento verde (éxito/dinero)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados para animaciones sutiles */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-w-dark text-slate-200 font-sans antialiased overflow-x-hidden selection:bg-w-blue selection:text-white">
+
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-bold text-white tracking-tighter flex items-center gap-2">
+                        <i class="ph ph-code-block text-w-blue text-3xl"></i>
+                        W Studio
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#beneficios" class="text-slate-300 hover:text-white transition-colors">Beneficios</a>
+                    <a href="#oferta" class="text-slate-300 hover:text-white transition-colors">La Oferta</a>
+                    <a href="#proceso" class="text-slate-300 hover:text-white transition-colors">Proceso</a>
+                    <a href="#faq" class="text-slate-300 hover:text-white transition-colors">FAQ</a>
+                    <a href="#contacto" class="bg-w-blue hover:bg-blue-600 text-white px-5 py-2.5 rounded-full font-semibold transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)]">
+                        Empezar Proyecto
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-effect border-t border-slate-700/50 absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#beneficios" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Beneficios</a>
+                <a href="#oferta" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">La Oferta</a>
+                <a href="#proceso" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Proceso</a>
+                <a href="#contacto" class="block px-3 py-2 text-center mt-4 rounded-md text-base font-bold text-white bg-w-blue">Empezar Ahora</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-20 pointer-events-none" style="background: radial-gradient(circle, rgba(37,99,235,0.8) 0%, rgba(15,23,42,0) 70%);"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-block mb-4 px-4 py-1.5 rounded-full glass-effect text-sm font-semibold text-w-blue border border-w-blue/30">
+                <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-w-blue animate-pulse"></span>
+                    Exclusivo para Emprendedores en Costa Rica
+                </span>
+            </div>
+            
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight fade-in-up">
+                Tu Empresa Necesita un <br class="hidden md:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-w-blue to-cyan-400">Sitio Web Profesional.</span>
+            </h1>
+            
+            <p class="mt-4 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 fade-in-up" style="transition-delay: 100ms;">
+                No pierdas más clientes. Obten un sitio web de alta calidad, listo para vender tu marca, con dominio incluido. Sin complicaciones, sin precios ocultos.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in-up" style="transition-delay: 200ms;">
+                <a href="#oferta" class="bg-w-blue hover:bg-blue-600 text-white text-lg px-8 py-4 rounded-full font-bold transition-all shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_30px_rgba(37,99,235,0.7)] flex items-center justify-center gap-2">
+                    Ver el Paquete de ₡100,000
+                    <i class="ph-bold ph-arrow-right"></i>
+                </a>
+                <a href="https://wa.me/50600000000?text=Hola%20Ronny,%20me%20interesa%20el%20paquete%20de%20sitio%20web%20por%20100%20mil%20colones" target="_blank" class="glass-effect hover:bg-slate-800 text-white text-lg px-8 py-4 rounded-full font-semibold transition-all flex items-center justify-center gap-2 border border-slate-600">
+                    <i class="ph-fill ph-whatsapp text-green-500 text-2xl"></i>
+                    Consultar por WhatsApp
+                </a>
+            </div>
+
+            <!-- Trust badges -->
+            <div class="mt-16 pt-8 border-t border-slate-800 fade-in-up" style="transition-delay: 300ms;">
+                <p class="text-sm text-slate-400 uppercase tracking-widest font-semibold mb-6">¿Por qué confiar en W Studio?</p>
+                <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-70">
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <i class="ph ph-check-circle text-w-accent text-xl"></i> <span>Diseño Moderno</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <i class="ph ph-rocket text-w-accent text-xl"></i> <span>Entrega Rápida</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <i class="ph ph-device-mobile text-w-accent text-xl"></i> <span>100% Responsivo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="beneficios" class="py-20 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">El salto digital que tu negocio necesita</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Tener presencia en internet no debería ser un lujo inalcanzable. En W Studio lo hacemos accesible y profesional.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Beneficio 1 -->
+                <div class="glass-effect p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 fade-in-up">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 border border-blue-500/20">
+                        <i class="ph ph-presentation-chart text-w-blue text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Diseño One-Page Efectivo</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Toda la información clave de tu negocio en una sola página de aterrizaje (Landing Page) optimizada para guiar a tus visitantes hacia la compra o contacto.
+                    </p>
+                </div>
+
+                <!-- Beneficio 2 -->
+                <div class="glass-effect p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 fade-in-up" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 border border-green-500/20">
+                        <i class="ph ph-globe text-w-accent text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Dominio Incluido</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Olvídate de trámites técnicos. El paquete incluye la compra de tu dominio (ej. <em>tuempresa.com</em> o <em>.co.cr</em> sujeto a disponibilidad y precio base) por el primer año.
+                    </p>
+                </div>
+
+                <!-- Beneficio 3 -->
+                <div class="glass-effect p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 border border-purple-500/20">
+                        <i class="ph ph-arrows-out text-purple-400 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Escalable a Futuro</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Empiezas con una página informativa, pero el sitio está construido con tecnología que permite agregar tiendas, blogs o más páginas cuando tu negocio crezca.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="oferta" class="py-24 relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-10 pointer-events-none rounded-full" style="background: radial-gradient(circle, rgba(16,185,129,0.5) 0%, rgba(15,23,42,0) 70%);"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-4xl font-bold text-white mb-4">Inversión Transparente, Sin Sorpresas</h2>
+                <p class="text-slate-400 text-lg">El plan perfecto para dar el primer paso en el mundo digital.</p>
+            </div>
+
+            <div class="max-w-lg mx-auto glass-effect rounded-3xl p-1 border-2 border-w-blue/30 relative fade-in-up">
+                <!-- Etiqueta Popular -->
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-w-blue to-cyan-500 text-white font-bold px-4 py-1 rounded-full text-sm shadow-lg">
+                    Paquete Emprendedor CR
+                </div>
+
+                <div class="bg-slate-900 rounded-[22px] p-8 md:p-10">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Sitio Web Informativo</h3>
+                        <div class="flex justify-center items-baseline gap-2 mb-2">
+                            <span class="text-3xl font-bold text-slate-400">₡</span>
+                            <span class="text-6xl font-extrabold text-white tracking-tight">100,000</span>
+                        </div>
+                        <p class="text-slate-400 text-sm">Pago único por el diseño y desarrollo inicial.</p>
+                    </div>
+
+                    <!-- Facilidades de pago -->
+                    <div class="bg-slate-800/50 rounded-xl p-4 mb-8 border border-slate-700 flex justify-between items-center text-sm">
+                        <div class="text-center">
+                            <p class="text-slate-400 mb-1">Para Iniciar</p>
+                            <p class="font-bold text-white text-lg">₡50,000</p>
+                        </div>
+                        <i class="ph ph-arrows-left-right text-slate-500 text-xl"></i>
+                        <div class="text-center">
+                            <p class="text-slate-400 mb-1">Al Finalizar</p>
+                            <p class="font-bold text-w-accent text-lg">₡50,000</p>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-w-blue mt-1 text-lg"></i>
+                            <span class="text-slate-300"><strong>Diseño One-Page</strong> (Inicio, Servicios, Sobre Nosotros, Contacto en una misma vista fluida).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-w-blue mt-1 text-lg"></i>
+                            <span class="text-slate-300"><strong>Dominio incluido por 1 año</strong> (.com, .net, .org, o .cr base)*.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-w-blue mt-1 text-lg"></i>
+                            <span class="text-slate-300">Integración con <strong>WhatsApp y Redes Sociales</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-w-blue mt-1 text-lg"></i>
+                            <span class="text-slate-300">Optimizado para <strong>Móviles (Responsive)</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-w-blue mt-1 text-lg"></i>
+                            <span class="text-slate-300">Formulario de contacto básico.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-w-blue mt-1 text-lg"></i>
+                            <span class="text-slate-300">Posibilidad de agregar más páginas en el futuro (costo extra).</span>
+                        </li>
+                    </ul>
+
+                    <a href="#contacto" class="block w-full bg-white hover:bg-slate-200 text-w-dark text-center py-4 rounded-xl font-bold text-lg transition-colors">
+                        Quiero mi Sitio Web
+                    </a>
+                    <p class="text-xs text-slate-500 text-center mt-4">
+                        *El precio incluye dominios estándar. Dominios premium o extensiones específicas pueden tener costo adicional. Hosting no incluido en el precio base (consultar opciones económicas).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proceso" class="py-20 bg-slate-900/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Un proceso sencillo y sin estrés</h2>
+                <p class="text-slate-400">Así es como pasamos de una idea a tu sitio web publicado.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                <!-- Linea conectora (desktop) -->
+                <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-0.5 bg-slate-800 z-0"></div>
+
+                <!-- Paso 1 -->
+                <div class="relative z-10 text-center fade-in-up">
+                    <div class="w-24 h-24 mx-auto glass-effect rounded-full flex items-center justify-center mb-6 border-2 border-slate-700 bg-w-dark">
+                        <i class="ph ph-chats text-4xl text-slate-300"></i>
+                        <div class="absolute -top-2 -right-2 bg-w-blue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Contacto</h4>
+                    <p class="text-sm text-slate-400">Hablamos sobre tu negocio, colores preferidos e ideas.</p>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="relative z-10 text-center fade-in-up" style="transition-delay: 100ms;">
+                    <div class="w-24 h-24 mx-auto glass-effect rounded-full flex items-center justify-center mb-6 border-2 border-slate-700 bg-w-dark">
+                        <i class="ph ph-handshake text-4xl text-slate-300"></i>
+                        <div class="absolute -top-2 -right-2 bg-w-blue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Acuerdo y Adelanto</h4>
+                    <p class="text-sm text-slate-400">Definimos el dominio y realizas el abono inicial del 50% (₡50,000).</p>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="relative z-10 text-center fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-24 h-24 mx-auto glass-effect rounded-full flex items-center justify-center mb-6 border-2 border-w-blue border-t-transparent animate-spin-slow bg-w-dark">
+                        <div class="w-full h-full rounded-full flex items-center justify-center bg-w-dark animate-none-spin">
+                            <i class="ph ph-paint-brush-broad text-4xl text-w-blue"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 bg-w-blue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                    </div>
+                    <style>
+                        .animate-spin-slow { animation: spin 4s linear infinite; }
+                        .animate-none-spin { animation: spin 4s linear infinite reverse; }
+                    </style>
+                    <h4 class="text-lg font-bold text-white mb-2">Diseño y Desarrollo</h4>
+                    <p class="text-sm text-slate-400">W Studio crea la magia. Te enviamos avances para tu aprobación.</p>
+                </div>
+
+                <!-- Paso 4 -->
+                <div class="relative z-10 text-center fade-in-up" style="transition-delay: 300ms;">
+                    <div class="w-24 h-24 mx-auto glass-effect rounded-full flex items-center justify-center mb-6 border-2 border-w-accent bg-w-dark shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                        <i class="ph ph-rocket-launch text-4xl text-w-accent"></i>
+                        <div class="absolute -top-2 -right-2 bg-w-accent text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">4</div>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Lanzamiento</h4>
+                    <p class="text-sm text-slate-400">Cancelas el 50% restante y publicamos tu sitio en internet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in-up">
+                <h2 class="text-3xl font-bold text-white mb-4">Preguntas Frecuentes</h2>
+                <p class="text-slate-400">Aclaramos tus dudas para que tomes la mejor decisión.</p>
+            </div>
+
+            <div class="space-y-4 fade-in-up">
+                <!-- FAQ Item 1 -->
+                <div class="glass-effect rounded-xl overflow-hidden border border-slate-700/50 faq-item">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none faq-btn">
+                        <span class="font-semibold text-white">¿Qué significa sitio web "One-Page" o de una página?</span>
+                        <i class="ph ph-caret-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-slate-400 text-sm hidden faq-content">
+                        Significa que toda la información principal (quiénes somos, servicios, galería, contacto) se encuentra en una única página larga por la que el usuario se desplaza (scroll). Es el formato más moderno, rápido y efectivo para presentar un negocio de manera directa sin que el cliente se pierda navegando por múltiples menús.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass-effect rounded-xl overflow-hidden border border-slate-700/50 faq-item">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none faq-btn">
+                        <span class="font-semibold text-white">¿El dominio es mío? ¿Qué pasa después del primer año?</span>
+                        <i class="ph ph-caret-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-slate-400 text-sm hidden faq-content">
+                        Sí, el dominio se registra a nombre de tu negocio/persona. El paquete incluye el costo del primer año. A partir del segundo año, deberás pagar la renovación anual del dominio (generalmente ronda los $15 - $25 USD al año, dependiendo de la extensión .com, .cr, etc.) para mantenerlo activo.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass-effect rounded-xl overflow-hidden border border-slate-700/50 faq-item">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none faq-btn">
+                        <span class="font-semibold text-white">¿Puedo agregar una tienda online o más secciones después?</span>
+                        <i class="ph ph-caret-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-slate-400 text-sm hidden faq-content">
+                        ¡Totalmente! El diseño de ₡100,000 es la base perfecta. Si tu negocio crece y necesitas un carrito de compras, un blog, o páginas separadas para diferentes servicios, podemos ampliar tu sitio web. Esto tendría un costo adicional que cotizaríamos según tus nuevas necesidades, pero no perderás la inversión inicial.
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="glass-effect rounded-xl overflow-hidden border border-slate-700/50 faq-item">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none faq-btn">
+                        <span class="font-semibold text-white">¿Qué necesito enviarles para empezar?</span>
+                        <i class="ph ph-caret-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-slate-400 text-sm hidden faq-content">
+                        Para trabajar más rápido, te pediremos: el logo de tu empresa (si tienes), los textos que quieres incluir (qué haces, por qué elegirte, datos de contacto) y algunas fotografías o imágenes de tus productos/servicios. Si no tienes imágenes profesionales, podemos usar bancos de imágenes gratuitas de alta calidad para que se vea excelente.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-24 relative overflow-hidden">
+        <!-- Background element -->
+        <div class="absolute inset-0 bg-w-blue/10 transform -skew-y-3 origin-top-left z-0"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 fade-in-up">
+                ¿Listo para tu nueva web por <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-w-accent">₡100,000</span>?
+            </h2>
+            <p class="text-xl text-slate-300 mb-10 fade-in-up" style="transition-delay: 100ms;">
+                Hablemos por WhatsApp. Es rápido, directo y sin compromisos. Respondemos de inmediato (horario CR).
+            </p>
+            
+            <div class="fade-in-up" style="transition-delay: 200ms;">
+                <a href="https://wa.me/50600000000?text=Pura%20vida%20Ronny.%20Soy%20un%20emprendedor%20y%20quiero%20el%20sitio%20web%20de%20100%20mil%20colones." 
+                   target="_blank"
+                   class="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white text-xl px-10 py-5 rounded-full font-bold transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)] hover:shadow-[0_0_30px_rgba(34,197,94,0.6)] hover:-translate-y-1">
+                    <i class="ph-fill ph-whatsapp text-3xl"></i>
+                    Escribir a W Studio CR
+                </a>
+            </div>
+            
+            <p class="mt-8 text-sm text-slate-400 fade-in-up" style="transition-delay: 300ms;">
+                O si prefieres, envíanos un correo a <a href="mailto:ronny@wstudio.cr" class="text-w-blue hover:underline">ronny@wstudio.cr</a>
+            </p>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 py-10 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2 text-xl font-bold text-white">
+                <i class="ph ph-code-block text-w-blue"></i>
+                W Studio
+            </div>
+            <div class="text-slate-500 text-sm text-center md:text-left">
+                &copy; <span id="year"></span> W Studio CR. Todos los derechos reservados.<br>
+                Desarrollado por Ronny Woods para emprendedores de Costa Rica.
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="text-slate-500 hover:text-w-blue transition-colors text-2xl"><i class="ph-fill ph-instagram-logo"></i></a>
+                <a href="#" class="text-slate-500 hover:text-w-blue transition-colors text-2xl"><i class="ph-fill ph-facebook-logo"></i></a>
+                <a href="#" class="text-slate-500 hover:text-w-blue transition-colors text-2xl"><i class="ph-fill ph-linkedin-logo"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Clics en enlaces del menú móvil lo cierran
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('glass-effect', 'shadow-lg');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('glass-effect', 'shadow-lg');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+
+        // FAQ Toggle Logic
+        const faqBtns = document.querySelectorAll('.faq-btn');
+        faqBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('i');
+                
+                // Close others
+                document.querySelectorAll('.faq-content').forEach(c => {
+                    if (c !== content && !c.classList.contains('hidden')) {
+                        c.classList.add('hidden');
+                        c.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+                    }
+                });
+
+                // Toggle current
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            });
+        });
+
+        // Intersection Observer for Fade-in Animations on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Solo anima una vez
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Trigger animations for elements already in view on load
+        setTimeout(() => {
+            document.querySelectorAll('.fade-in-up').forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    el.classList.add('visible');
+                }
+            });
+        }, 100);
+
+    </script>
+</body>
+</html>
