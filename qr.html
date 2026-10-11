@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Tarjetas de Contacto QR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Iconos de Phosphor Icons para un diseño más limpio -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
+        }
+        /* Ocultar el contenedor del QR inicialmente */
+        #qr-container {
+            display: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <main class="bg-white rounded-2xl shadow-xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- Sección del Formulario (Izquierda/Arriba) -->
+        <section class="w-full md:w-3/5 p-8 border-b md:border-b-0 md:border-r border-gray-200">
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 flex items-center gap-2">
+                    <i class="ph ph-identification-card text-blue-600"></i>
+                    Generador de Contacto QR
+                </h1>
+                <p class="text-gray-500 mt-2 text-sm">Ingresa los datos para crear una tarjeta digital (vCard) que podrá ser escaneada y guardada en cualquier smartphone.</p>
+            </div>
+
+            <form id="vcard-form" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="ph ph-user text-gray-400"></i>
+                            </div>
+                            <input type="text" id="firstName" name="firstName" required
+                                class="pl-10 w-full rounded-lg border-gray-300 border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                placeholder="Ej. Juan">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Apellidos</label>
+                        <input type="text" id="lastName" name="lastName" required
+                            class="w-full rounded-lg border-gray-300 border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ej. Pérez">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">Empresa</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="ph ph-buildings text-gray-400"></i>
+                        </div>
+                        <input type="text" id="organization" name="organization"
+                            class="pl-10 w-full rounded-lg border-gray-300 border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ej. Mi Empresa S.A.">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Puesto / Cargo</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="ph ph-briefcase text-gray-400"></i>
+                        </div>
+                        <input type="text" id="title" name="title"
+                            class="pl-10 w-full rounded-lg border-gray-300 border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Ej. Gerente de Ventas">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Teléfono Móvil</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="ph ph-device-mobile text-gray-400"></i>
+                            </div>
+                            <input type="tel" id="phone" name="phone" required
+                                class="pl-10 w-full rounded-lg border-gray-300 border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                placeholder="+1 234 567 8900">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="ph ph-envelope-simple text-gray-400"></i>
+                            </div>
+                            <input type="email" id="email" name="email"
+                                class="pl-10 w-full rounded-lg border-gray-300 border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                placeholder="correo@empresa.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="website" class="block text-sm font-medium text-gray-700 mb-1">Sitio Web / URL</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="ph ph-globe text-gray-400"></i>
+                        </div>
+                        <input type="url" id="website" name="website"
+                            class="pl-10 w-full rounded-lg border-gray-300 border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="https://www.empresa.com">
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2">
+                        <i class="ph ph-qr-code text-xl"></i>
+                        Generar Código QR
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section class="w-full md:w-2/5 p-8 bg-gray-50 flex flex-col items-center justify-center relative">
+            
+            <!-- Estado inicial: Instrucción -->
+            <div id="initial-state" class="text-center text-gray-400 flex flex-col items-center">
+                <i class="ph ph-scan text-6xl mb-4 text-gray-300"></i>
+                <p>Llena el formulario y haz clic en generar para ver tu código QR aquí.</p>
+            </div>
+
+            <!-- Estado de resultado: QR generado -->
+            <div id="qr-container" class="w-full max-w-sm flex flex-col items-center justify-center space-y-6 fade-in">
+                
+                <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+                    <!-- Aquí se inyectará el código QR -->
+                    <div id="qrcode"></div>
+                </div>
+
+                <div class="text-center w-full">
+                    <h3 id="preview-name" class="text-lg font-bold text-gray-800">Nombre</h3>
+                    <p id="preview-title" class="text-sm text-gray-500">Puesto</p>
+                </div>
+
+                <div class="flex flex-col w-full gap-3 mt-4">
+                    <button id="download-qr-btn" class="w-full bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors flex justify-center items-center gap-2">
+                        <i class="ph ph-download-simple"></i>
+                        Descargar Imagen QR
+                    </button>
+                    <button id="download-vcf-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2">
+                        <i class="ph ph-address-book"></i>
+                        Descargar Archivo vCard
+                    </button>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <!-- Notificación tipo Toast para errores o éxitos (Reemplaza a alert) -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-xl transform transition-transform duration-300 translate-y-20 opacity-0 flex items-center gap-3">
+        <i id="toast-icon" class="ph ph-info text-xl"></i>
+        <span id="toast-message">Mensaje</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('vcard-form');
+            const qrContainer = document.getElementById('qr-container');
+            const initialState = document.getElementById('initial-state');
+            const qrcodeDiv = document.getElementById('qrcode');
+            const previewName = document.getElementById('preview-name');
+            const previewTitle = document.getElementById('preview-title');
+            const downloadQrBtn = document.getElementById('download-qr-btn');
+            const downloadVcfBtn = document.getElementById('download-vcf-btn');
+            
+            let qrcode = null; // Guardará la instancia del QR
+            let currentVCardString = ""; // Guardará el texto VCF generado
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // 1. Recoger datos
+                const formData = new FormData(form);
+                const data = {
+                    firstName: formData.get('firstName').trim(),
+                    lastName: formData.get('lastName').trim(),
+                    organization: formData.get('organization').trim(),
+                    title: formData.get('title').trim(),
+                    phone: formData.get('phone').trim(),
+                    email: formData.get('email').trim(),
+                    website: formData.get('website').trim()
+                };
+
+                // 2. Generar el string de formato vCard (v3.0)
+                currentVCardString = generateVCard(data);
+
+                // 3. Generar el código QR con el string vCard
+                generateQRCode(currentVCardString);
+
+                // 4. Actualizar la vista (Ocultar instrucción, mostrar QR y preview)
+                initialState.style.display = 'none';
+                qrContainer.style.display = 'flex';
+                
+                previewName.textContent = `${data.firstName} ${data.lastName}`;
+                previewTitle.textContent = data.title ? `${data.title} en ${data.organization}` : (data.organization || 'Contacto');
+
+                showToast("¡Código QR generado con éxito!", "success");
+            });
+
+            function generateVCard(data) {
+                // Formato estándar vCard 3.0
+                let vcard = "BEGIN:VCARD\nVERSION:3.0\n";
+                vcard += `N:${data.lastName};${data.firstName};;;\n`;
+                vcard += `FN:${data.firstName} ${data.lastName}\n`;
+                
+                if (data.organization) vcard += `ORG:${data.organization}\n`;
+                if (data.title) vcard += `TITLE:${data.title}\n`;
+                if (data.phone) vcard += `TEL;TYPE=CELL,VOICE:${data.phone}\n`;
+                if (data.email) vcard += `EMAIL;TYPE=WORK,INTERNET:${data.email}\n`;
+                if (data.website) vcard += `URL:${data.website}\n`;
+                
+                vcard += "END:VCARD";
+                return vcard;
+            }
+
+            function generateQRCode(text) {
+                // Limpiar QR anterior si existe
+                qrcodeDiv.innerHTML = '';
+                
+                // Configurar nueva instancia
+                qrcode = new QRCode(qrcodeDiv, {
+                    text: text,
+                    width: 200,
+                    height: 200,
+                    colorDark : "#1f2937", // Gris muy oscuro (Tailwind gray-800)
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.M // Nivel medio de corrección de errores
+                });
+            }
+
+            // Descargar VCF (Archivo de Contacto)
+            downloadVcfBtn.addEventListener('click', () => {
+                if (!currentVCardString) return;
+                
+                // Crear un Blob con el texto de la vCard
+                const blob = new Blob([currentVCardString], { type: 'text/vcard;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                
+                // Crear un enlace temporal para forzar la descarga
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'contacto.vcf');
+                document.body.appendChild(link);
+                link.click();
+                
+                // Limpieza
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                showToast("Archivo vCard descargado.", "info");
+            });
+
+            // Descargar la imagen del QR (PNG)
+            downloadQrBtn.addEventListener('click', () => {
+                // qrcode.js genera una etiqueta <img> o un <canvas> dentro del div.
+                const imgElement = qrcodeDiv.querySelector('img');
+                const canvasElement = qrcodeDiv.querySelector('canvas');
+                
+                let imageUrl = '';
+                
+                if (imgElement && imgElement.src) {
+                     // Algunos navegadores usan la imagen (base64)
+                    imageUrl = imgElement.src;
+                } else if (canvasElement) {
+                    // Otros usan el canvas, lo convertimos a dataURL
+                    imageUrl = canvasElement.toDataURL("image/png");
+                }
+
+                if (imageUrl) {
+                    const link = document.createElement('a');
+                    link.href = imageUrl;
+                    link.download = 'codigo-qr-contacto.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showToast("Imagen QR descargada.", "info");
+                } else {
+                    showToast("Error al obtener la imagen del QR.", "error");
+                }
+            });
+
+            function showToast(message, type = 'info') {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toast-message');
+                const toastIcon = document.getElementById('toast-icon');
+
+                toastMessage.textContent = message;
+                
+                // Cambiar icono y color según el tipo
+                if (type === 'success') {
+                    toastIcon.className = 'ph ph-check-circle text-xl text-green-400';
+                    toast.classList.replace('bg-gray-800', 'bg-gray-900');
+                } else if (type === 'error') {
+                    toastIcon.className = 'ph ph-warning-circle text-xl text-red-400';
+                    toast.classList.replace('bg-gray-800', 'bg-red-900');
+                } else {
+                    toastIcon.className = 'ph ph-info text-xl text-blue-400';
+                    toast.classList.replace('bg-gray-900', 'bg-gray-800');
+                    toast.classList.replace('bg-red-900', 'bg-gray-800');
+                }
+
+                // Mostrar (remover translate y opacity)
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                
+                // Ocultar después de 3 segundos
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
