@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador QR Pro de Contactos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- QR Code Styling Library (Librería Avanzada) -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Slate 50 */
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        /* Color input styling */
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 100%;
+            height: 40px;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            padding: 0;
+            overflow: hidden;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto mb-8 text-center md:text-left">
+        <h1 class="text-4xl font-extrabold text-slate-900 flex items-center justify-center md:justify-start gap-3">
+            <i class="ph-fill ph-qr-code text-indigo-600"></i>
+            Generador QR <span class="text-indigo-600">Pro</span>
+        </h1>
+        <p class="text-slate-500 mt-2">Crea tarjetas de contacto (vCard) personalizadas con diseño premium.</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-start">
+        
+        <!-- COLUMNA IZQUIERDA: Controles y Formulario -->
+        <div class="w-full lg:w-2/3 space-y-6">
+            
+            <!-- TARJETA 1: Información de Contacto -->
+            <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
+                    <i class="ph-fill ph-user-circle text-indigo-500"></i>
+                    Información del Contacto
+                </h2>
+                <form id="data-form" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nombre *</label>
+                            <input type="text" id="firstName" name="firstName" required
+                                class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                placeholder="Ej. Juan">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Apellidos *</label>
+                            <input type="text" id="lastName" name="lastName" required
+                                class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                placeholder="Ej. Pérez">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Empresa</label>
+                            <input type="text" id="organization" name="organization"
+                                class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                placeholder="Ej. Mi Empresa S.A.">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Puesto / Cargo</label>
+                            <input type="text" id="title" name="title"
+                                class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                placeholder="Ej. Gerente General">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Teléfono Móvil *</label>
+                            <input type="tel" id="phone" name="phone" required
+                                class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                placeholder="+1 234 567 8900">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Correo Electrónico</label>
+                            <input type="email" id="email" name="email"
+                                class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                placeholder="correo@empresa.com">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Sitio Web / URL</label>
+                        <input type="url" id="website" name="website"
+                            class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                            placeholder="https://www.empresa.com">
+                    </div>
+                </form>
+            </section>
+
+            <!-- TARJETA 2: Personalización del Diseño QR -->
+            <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
+                    <i class="ph-fill ph-palette text-pink-500"></i>
+                    Diseño y Personalización
+                </h2>
+                
+                <form id="design-form" class="space-y-6">
+                    <!-- Colores -->
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Color del Código</label>
+                            <div class="flex items-center gap-2">
+                                <input type="color" id="qr-color" value="#0f172a">
+                                <span class="text-xs text-slate-500 w-16" id="qr-color-hex">#0f172a</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Color de Fondo</label>
+                            <div class="flex items-center gap-2">
+                                <input type="color" id="bg-color" value="#ffffff">
+                                <span class="text-xs text-slate-500 w-16" id="bg-color-hex">#ffffff</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estilos de forma -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Estilo de Puntos</label>
+                            <select id="dots-style" class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-pink-500 outline-none transition-all">
+                                <option value="square">Cuadrados (Clásico)</option>
+                                <option value="rounded" selected>Redondeados</option>
+                                <option value="dots">Puntos circulares</option>
+                                <option value="classy">Elegante</option>
+                                <option value="classy-rounded">Elegante Redondeado</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Estilo de Esquinas</label>
+                            <select id="corners-style" class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-pink-500 outline-none transition-all">
+                                <option value="square">Cuadradas</option>
+                                <option value="extra-rounded" selected>Extra Redondeadas</option>
+                                <option value="dot">Puntos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Logo Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Logo o Foto Central (Opcional)</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 border-dashed rounded-lg hover:border-indigo-400 transition-colors bg-slate-50 relative group">
+                            <div class="space-y-1 text-center">
+                                <i class="ph ph-image text-4xl text-slate-400 group-hover:text-indigo-500 transition-colors"></i>
+                                <div class="flex text-sm text-slate-600 justify-center">
+                                    <label for="logo-upload" class="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                        <span>Sube un archivo</span>
+                                        <input id="logo-upload" name="logo-upload" type="file" accept="image/*" class="sr-only">
+                                    </label>
+                                </div>
+                                <p class="text-xs text-slate-500">PNG, JPG hasta 2MB</p>
+                            </div>
+                        </div>
+                        <div id="logo-preview-container" class="hidden mt-3 flex items-center justify-between p-3 bg-slate-100 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <img id="logo-preview-img" src="" alt="Logo" class="h-10 w-10 object-cover rounded-md shadow-sm">
+                                <span class="text-sm font-medium text-slate-700 truncate w-32" id="logo-filename">logo.png</span>
+                            </div>
+                            <button type="button" id="remove-logo" class="text-red-500 hover:text-red-700 p-2 rounded-md hover:bg-red-50 transition-colors">
+                                <i class="ph ph-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- COLUMNA DERECHA: Vista Previa y Descargas (Sticky) -->
+        <div class="w-full lg:w-1/3 lg:sticky lg:top-8 space-y-6">
+            
+            <section class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden flex flex-col items-center">
+                
+                <!-- Encabezado de la tarjeta -->
+                <div class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 p-6 text-center text-white">
+                    <h3 id="preview-name" class="text-2xl font-bold truncate">Tu Nombre</h3>
+                    <p id="preview-title" class="text-indigo-100 text-sm mt-1 truncate">Tu Puesto / Empresa</p>
+                </div>
+
+                <!-- Contenedor del QR -->
+                <div class="p-8 pb-4 w-full flex justify-center">
+                    <div id="qr-canvas-container" class="bg-white rounded-xl shadow-sm border border-slate-100 p-2 transition-all duration-300 hover:shadow-md">
+                        <!-- El QR se inyecta aquí -->
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-400 mb-6 px-6 text-center">Escanea para añadir a contactos.</p>
+
+                <!-- Botones de Acción -->
+                <div class="w-full p-6 bg-slate-50 border-t border-slate-100 space-y-3">
+                    <button id="download-png" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-2.5 px-4 rounded-xl shadow-sm transition-all flex justify-center items-center gap-2">
+                        <i class="ph-bold ph-download-simple"></i>
+                        Descargar QR (PNG)
+                    </button>
+                    <button id="download-svg" class="w-full bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 font-medium py-2.5 px-4 rounded-xl shadow-sm transition-all flex justify-center items-center gap-2">
+                        <i class="ph-bold ph-bezier-curve"></i>
+                        Descargar QR (Vector SVG)
+                    </button>
+                    <button id="download-vcf" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-xl shadow-sm transition-all flex justify-center items-center gap-2 mt-4">
+                        <i class="ph-bold ph-address-book"></i>
+                        Descargar Archivo vCard
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notificación Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl transform transition-all duration-300 translate-y-20 opacity-0 flex items-center gap-3 z-50">
+        <i id="toast-icon" class="ph-fill ph-check-circle text-xl text-green-400"></i>
+        <span id="toast-message" class="font-medium text-sm">Mensaje</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Referencias DOM
+            const dataForm = document.getElementById('data-form');
+            const designForm = document.getElementById('design-form');
+            const previewName = document.getElementById('preview-name');
+            const previewTitle = document.getElementById('preview-title');
+            
+            // Referencias Diseño
+            const qrColor = document.getElementById('qr-color');
+            const bgColor = document.getElementById('bg-color');
+            const dotsStyle = document.getElementById('dots-style');
+            const cornersStyle = document.getElementById('corners-style');
+            const logoUpload = document.getElementById('logo-upload');
+            const removeLogoBtn = document.getElementById('remove-logo');
+            const logoPreviewContainer = document.getElementById('logo-preview-container');
+            const logoPreviewImg = document.getElementById('logo-preview-img');
+            const qrColorHex = document.getElementById('qr-color-hex');
+            const bgColorHex = document.getElementById('bg-color-hex');
+
+            let currentLogoBase64 = null;
+            let currentVCardString = "";
+
+            // 1. Inicializar QR Code Styling
+            const qrCode = new QRCodeStyling({
+                width: 280,
+                height: 280,
+                type: "svg", // Renderizamos en SVG para la web (más nítido)
+                data: "BEGIN:VCARD\nVERSION:3.0\nN:;Generador QR;;;\nFN:Generador QR\nEND:VCARD",
+                margin: 5,
+                qrOptions: {
+                    typeNumber: 0,
+                    mode: "Byte",
+                    errorCorrectionLevel: "H" // Nivel Alto para soportar logos grandes
+                },
+                imageOptions: {
+                    hideBackgroundDots: true,
+                    imageSize: 0.4, // El logo ocupará el 40% del centro
+                    margin: 8,
+                    crossOrigin: "anonymous",
+                },
+                dotsOptions: {
+                    color: "#0f172a",
+                    type: "rounded"
+                },
+                backgroundOptions: {
+                    color: "#ffffff",
+                },
+                cornersSquareOptions: {
+                    type: "extra-rounded",
+                    color: "#0f172a"
+                },
+                cornersDotOptions: {
+                    type: "dot",
+                    color: "#0f172a"
+                }
+            });
+
+            // Montar en el DOM
+            qrCode.append(document.getElementById("qr-canvas-container"));
+
+            // 2. Función Principal: Actualizar QR
+            function updateQR() {
+                // Obtener datos del formulario
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const organization = document.getElementById('organization').value.trim();
+                const title = document.getElementById('title').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const website = document.getElementById('website').value.trim();
+
+                // Actualizar Textos Visuales
+                previewName.textContent = firstName || lastName ? `${firstName} ${lastName}` : "Tu Nombre";
+                previewTitle.textContent = title ? `${title} en ${organization}` : (organization || "Tu Puesto / Empresa");
+
+                // Generar vCard String
+                let vcard = "BEGIN:VCARD\nVERSION:3.0\n";
+                vcard += `N:${lastName};${firstName};;;\n`;
+                vcard += `FN:${firstName} ${lastName}\n`;
+                if (organization) vcard += `ORG:${organization}\n`;
+                if (title) vcard += `TITLE:${title}\n`;
+                if (phone) vcard += `TEL;TYPE=CELL,VOICE:${phone}\n`;
+                if (email) vcard += `EMAIL;TYPE=WORK,INTERNET:${email}\n`;
+                if (website) vcard += `URL:${website}\n`;
+                vcard += "END:VCARD";
+                
+                currentVCardString = vcard;
+
+                // Obtener estilos
+                const fColor = qrColor.value;
+                const bColor = bgColor.value;
+                const dStyle = dotsStyle.value;
+                const cStyle = cornersStyle.value;
+
+                // Actualizar textos hex
+                qrColorHex.textContent = fColor;
+                bgColorHex.textContent = bColor;
+
+                // Actualizar instancia del QR
+                qrCode.update({
+                    data: currentVCardString,
+                    image: currentLogoBase64 || "",
+                    dotsOptions: { color: fColor, type: dStyle },
+                    backgroundOptions: { color: bColor },
+                    cornersSquareOptions: { color: fColor, type: cStyle },
+                    cornersDotOptions: { color: fColor, type: "dot" } // Mantenemos el punto interior consistente
+                });
+            }
+
+            // 3. Event Listeners (Reacción en tiempo real con Debounce)
+            // Debounce evita que el QR se regenere en cada micro-tecleo, esperando 300ms.
+            function debounce(func, wait) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+
+            const debouncedUpdate = debounce(updateQR, 200);
+
+            // Escuchar cambios en los inputs de datos
+            const dataInputs = dataForm.querySelectorAll('input');
+            dataInputs.forEach(input => input.addEventListener('input', debouncedUpdate));
+
+            // Escuchar cambios en diseño
+            qrColor.addEventListener('input', debouncedUpdate);
+            bgColor.addEventListener('input', debouncedUpdate);
+            dotsStyle.addEventListener('change', updateQR);
+            cornersStyle.addEventListener('change', updateQR);
+
+            // 4. Lógica de Subida de Logo
+            logoUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Validar tamaño (máximo 2MB aprox)
+                    if(file.size > 2000000) {
+                        showToast("El archivo es muy grande. Máximo 2MB.", "error");
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        currentLogoBase64 = event.target.result;
+                        logoPreviewImg.src = currentLogoBase64;
+                        document.getElementById('logo-filename').textContent = file.name;
+                        logoPreviewContainer.classList.remove('hidden');
+                        updateQR(); // Actualizar inmediatamente con el logo
+                        showToast("Logo añadido al código QR", "success");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeLogoBtn.addEventListener('click', () => {
+                currentLogoBase64 = null;
+                logoUpload.value = '';
+                logoPreviewContainer.classList.add('hidden');
+                updateQR();
+            });
+
+            // 5. Botones de Descarga
+            document.getElementById('download-png').addEventListener('click', () => {
+                // Validación básica antes de descargar
+                if(!document.getElementById('firstName').value && !document.getElementById('phone').value){
+                    showToast("Por favor, llena algunos datos primero.", "error");
+                    return;
+                }
+                qrCode.download({ name: "codigo-contacto", extension: "png" });
+                showToast("Descargando imagen PNG...", "success");
+            });
+
+            document.getElementById('download-svg').addEventListener('click', () => {
+                if(!document.getElementById('firstName').value && !document.getElementById('phone').value){
+                    showToast("Por favor, llena algunos datos primero.", "error");
+                    return;
+                }
+                qrCode.download({ name: "codigo-contacto", extension: "svg" });
+                showToast("Descargando vector SVG...", "success");
+            });
+
+            document.getElementById('download-vcf').addEventListener('click', () => {
+                if(!currentVCardString || currentVCardString.includes("Generador QR")) {
+                    showToast("Por favor, ingresa tus datos para crear la vCard.", "error");
+                    return;
+                }
+                const blob = new Blob([currentVCardString], { type: 'text/vcard;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'contacto.vcf');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                showToast("Archivo vCard descargado.", "success");
+            });
+
+            // Función Helper para Toasts (Notificaciones)
+            function showToast(message, type = 'info') {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toast-message');
+                const toastIcon = document.getElementById('toast-icon');
+
+                toastMessage.textContent = message;
+                
+                if (type === 'success') {
+                    toastIcon.className = 'ph-fill ph-check-circle text-xl text-green-400';
+                } else if (type === 'error') {
+                    toastIcon.className = 'ph-fill ph-warning-circle text-xl text-red-400';
+                }
+
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 3000);
+            }
+
+            // Inicializar con estado vacío pero listo
+            updateQR();
+        });
+    </script>
+</body>
+</html>
