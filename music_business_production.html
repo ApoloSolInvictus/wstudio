@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Business Production | by Dj Ronny Woods</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6', // Primary Teal
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                            950: '#042f2e',
+                        },
+                        dark: '#0f172a',
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for extra flair */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #2dd4bf, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-bg {
+            background-color: #0f172a;
+            background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-dark text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
+
+    <nav class="fixed w-full z-50 glass-panel transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-400 to-blue-500 flex items-center justify-center text-white font-bold font-display text-xl">
+                        RW
+                    </div>
+                    <span class="font-display font-bold text-white text-xl tracking-tight">Dj Ronny Woods</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-slate-300 hover:text-brand-400 px-3 py-2 text-sm font-medium transition-colors">Inicio</a>
+                    <a href="#el-problema" class="text-slate-300 hover:text-brand-400 px-3 py-2 text-sm font-medium transition-colors">El Problema (ACAM)</a>
+                    <a href="#la-solucion" class="text-slate-300 hover:text-brand-400 px-3 py-2 text-sm font-medium transition-colors">La Solución IA</a>
+                    <a href="#beneficios" class="text-slate-300 hover:text-brand-400 px-3 py-2 text-sm font-medium transition-colors">Beneficios</a>
+                    <a href="#contacto" class="bg-brand-500 hover:bg-brand-600 text-white px-6 py-2 rounded-full text-sm font-medium transition-all shadow-[0_0_15px_rgba(20,184,166,0.4)] hover:shadow-[0_0_25px_rgba(20,184,166,0.6)]">Cotizar Ahora</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-slate-700/50">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+                <a href="#inicio" class="text-slate-300 hover:text-brand-400 block px-3 py-2 text-base font-medium">Inicio</a>
+                <a href="#el-problema" class="text-slate-300 hover:text-brand-400 block px-3 py-2 text-base font-medium">El Problema</a>
+                <a href="#la-solucion" class="text-slate-300 hover:text-brand-400 block px-3 py-2 text-base font-medium">La Solución IA</a>
+                <a href="#beneficios" class="text-slate-300 hover:text-brand-400 block px-3 py-2 text-base font-medium">Beneficios</a>
+                <a href="#contacto" class="bg-brand-500 text-white block px-3 py-2 rounded-md text-base font-medium mt-2 text-center">Cotizar Ahora</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center hero-bg pt-20 overflow-hidden">
+        <!-- Abstract Animated Background Elements -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full mix-blend-screen filter blur-[100px] animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-blue-500/20 rounded-full mix-blend-screen filter blur-[120px] animate-float" style="animation-delay: 2s;"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-brand-300 text-sm font-medium mb-8 border border-brand-500/30 shadow-[0_0_15px_rgba(20,184,166,0.2)]">
+                <i class="fa-solid fa-bolt text-yellow-400"></i>
+                <span>Revolucionando la música comercial en Costa Rica</span>
+            </div>
+            
+            <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
+                Music Business <br/>
+                <span class="text-gradient">Production</span>
+            </h1>
+            
+            <p class="mt-4 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed mb-10">
+                Música <strong class="text-white font-semibold">100% original</strong> generada por Inteligencia Artificial, diseñada exclusivamente para la identidad de tu negocio.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#el-problema" class="px-8 py-4 bg-brand-500 hover:bg-brand-400 text-white rounded-full font-semibold text-lg transition-all duration-300 transform hover:-translate-y-1 shadow-[0_10px_30px_rgba(20,184,166,0.4)] flex items-center gap-2">
+                    Dile adiós a ACAM <i class="fa-solid fa-arrow-down"></i>
+                </a>
+                <a href="#la-solucion" class="px-8 py-4 glass-panel hover:bg-white/10 text-white rounded-full font-semibold text-lg transition-all duration-300 flex items-center gap-2">
+                    Descubre cómo funciona <i class="fa-solid fa-play text-brand-400"></i>
+                </a>
+            </div>
+
+            <!-- Stats/Trust badges below hero -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto opacity-80">
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-robot text-3xl text-brand-400 mb-2"></i>
+                    <span class="text-white font-bold text-xl">100% IA</span>
+                    <span class="text-xs text-slate-400 uppercase tracking-wider">Música Original</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-copyright text-3xl text-brand-400 mb-2"></i>
+                    <span class="text-white font-bold text-xl">Cero Pagos</span>
+                    <span class="text-xs text-slate-400 uppercase tracking-wider">A Entidades Externas</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-clock text-3xl text-brand-400 mb-2"></i>
+                    <span class="text-white font-bold text-xl">48 Horas</span>
+                    <span class="text-xs text-slate-400 uppercase tracking-wider">De Música Continua</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-mobile-screen text-3xl text-brand-400 mb-2"></i>
+                    <span class="text-white font-bold text-xl">Web App</span>
+                    <span class="text-xs text-slate-400 uppercase tracking-wider">Reproductor Propio</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="el-problema" class="py-24 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-2">La Realidad Actual</h2>
+                <h3 class="font-display text-3xl md:text-5xl font-bold text-white mb-6">El Costo Oculto de Sonar Música Conocida</h3>
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
+                    En Costa Rica, reproducir música comercial en tu negocio no es gratis. Tienes que pagar tarifas mensuales a asociaciones como ACAM por derechos de autor, independientemente de si usas Spotify, YouTube o radio. Es un gasto fijo que no aporta a la identidad de tu marca.
+                </p>
+            </div>
+
+            <!-- ACAM Cost Table/Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden group hover:border-red-500/50 transition-colors">
+                    <div class="absolute top-0 right-0 bg-red-500/20 text-red-400 text-xs px-3 py-1 rounded-bl-lg font-semibold">Gasto Fijo Mensual</div>
+                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">
+                        ☕
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Cafeterías & Restaurantes</h4>
+                    <p class="text-slate-400 text-sm mb-4">Tarifas variables según capacidad y tipo de licencia.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Restaurantes (1-80 sillas)</span>
+                            <span class="text-red-400 font-mono">~ ₡18,100/mes</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Restaurantes (161+ sillas)</span>
+                            <span class="text-red-400 font-mono">~ ₡41,500/mes</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Con Licencia de Licor</span>
+                            <span class="text-red-400 font-mono">Hasta ₡83,000/mes</span>
+                        </li>
+                    </ul>
+                    <div class="text-center text-slate-500 text-xs italic">Costo anual estimado: <strong class="text-slate-300">₡217k - ₡996k</strong></div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden group hover:border-red-500/50 transition-colors">
+                    <div class="absolute top-0 right-0 bg-red-500/20 text-red-400 text-xs px-3 py-1 rounded-bl-lg font-semibold">Gasto Fijo Mensual</div>
+                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">
+                        🛍️
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Tiendas & Locales Comerciales</h4>
+                    <p class="text-slate-400 text-sm mb-4">Boutiques, zapaterías, supermercados y pasillos comerciales.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Boutiques / Tiendas</span>
+                            <span class="text-red-400 font-mono">~ ₡10,100/mes</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Supermercados</span>
+                            <span class="text-red-400 font-mono">~ ₡17,700/mes</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Centros Comerciales (áreas)</span>
+                            <span class="text-red-400 font-mono">~ ₡101,300/mes</span>
+                        </li>
+                    </ul>
+                    <div class="text-center text-slate-500 text-xs italic">Costo anual estimado: <strong class="text-slate-300">₡121k - ₡1.2M</strong></div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden group hover:border-red-500/50 transition-colors md:col-span-2 lg:col-span-1">
+                    <div class="absolute top-0 right-0 bg-red-500/20 text-red-400 text-xs px-3 py-1 rounded-bl-lg font-semibold">Gasto Fijo Mensual</div>
+                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">
+                        🏨
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-2">Hoteles, Spas & Gimnasios</h4>
+                    <p class="text-slate-400 text-sm mb-4">Gasto por ambientar espacios de relajación o entrenamiento.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Gimnasios (51+ pers)</span>
+                            <span class="text-red-400 font-mono">~ ₡40,500/mes</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Hoteles 4 Estrellas</span>
+                            <span class="text-red-400 font-mono">Hasta ₡159,200/mes</span>
+                        </li>
+                        <li class="flex justify-between items-center text-sm border-b border-slate-700/50 pb-2">
+                            <span class="text-slate-300">Estética / Spa</span>
+                            <span class="text-red-400 font-mono">~ ₡12,700/mes</span>
+                        </li>
+                    </ul>
+                    <div class="text-center text-slate-500 text-xs italic">Costo anual estimado: <strong class="text-slate-300">₡152k - ₡1.9M</strong></div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <div class="inline-block p-[1px] rounded-full bg-gradient-to-r from-red-500 to-orange-500">
+                    <div class="px-6 py-3 bg-slate-900 rounded-full flex items-center gap-3">
+                        <i class="fa-solid fa-triangle-exclamation text-orange-500"></i>
+                        <p class="text-slate-300 font-medium">Además, esta música genérica <span class="text-white font-bold">no diferencia a tu negocio</span> de la competencia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="la-solucion" class="py-24 relative overflow-hidden bg-dark">
+        <!-- AI Aesthetic Background -->
+        <div class="absolute inset-0 z-0 opacity-20" style="background-image: radial-gradient(#2dd4bf 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-b from-transparent via-brand-900/20 to-dark z-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <div class="lg:w-1/2">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-sm font-semibold mb-6 border border-brand-500/20">
+                        <i class="fa-solid fa-microchip"></i> El Futuro de la Ambientación
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+                        Producción Musical <br/> <span class="text-gradient">Impulsada por IA</span>
+                    </h2>
+                    <p class="text-lg text-slate-300 mb-6 leading-relaxed">
+                        Soy Dj Ronny Woods, Desarrollador Web y Productor Musical. Utilizo las IAs más avanzadas como mis mejores herramientas para crear un ecosistema sonoro único para tu marca.
+                    </p>
+                    
+                    <div class="space-y-6 mt-8">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 text-xl border border-brand-500/30">
+                                1
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">Composición IA Personalizada</h4>
+                                <p class="text-slate-400 text-sm">Entrenamos modelos para generar música que encaje perfectamente con la vibra de tu local: relajante para Spas, energética para Gimnasios, elegante para Hoteles.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 text-xl border border-brand-500/30">
+                                2
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">Propiedad Intelectual Tuya</h4>
+                                <p class="text-slate-400 text-sm">Al contratar mi servicio, <strong>Yo te cedo los derechos de autor</strong>. Eres dueño de la música que suena en tu local. <span class="text-brand-400 font-semibold">Cero cobros de ACAM.</span></p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 text-xl border border-brand-500/30">
+                                3
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">48 Horas de Catálogo</h4>
+                                <p class="text-slate-400 text-sm">Generamos un volumen masivo de pistas (hasta 48 horas de música sin repetición) garantizando frescura todos los días para tus clientes y empleados.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web App Mockup -->
+                <div class="lg:w-1/2 w-full">
+                    <div class="relative mx-auto w-full max-w-md">
+                        <!-- Glow effect -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-brand-400 to-blue-500 rounded-3xl blur opacity-30 animate-pulse"></div>
+                        
+                        <!-- App UI -->
+                        <div class="relative bg-slate-900 rounded-3xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col h-[600px]">
+                            <!-- App Header -->
+                            <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-900/80 backdrop-blur">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-md bg-brand-500 flex items-center justify-center text-white text-xs font-bold">
+                                        <i class="fa-solid fa-music"></i>
+                                    </div>
+                                    <span class="font-bold text-white text-sm">Tu Marca Player</span>
+                                </div>
+                                <i class="fa-solid fa-bars text-slate-400"></i>
+                            </div>
+                            
+                            <!-- App Content -->
+                            <div class="flex-1 p-6 flex flex-col items-center justify-center relative">
+                                <!-- Vinyl Record Animation -->
+                                <div class="w-48 h-48 rounded-full border-8 border-slate-800 bg-slate-950 relative flex items-center justify-center shadow-[0_0_30px_rgba(20,184,166,0.15)] animate-[spin_4s_linear_infinite]">
+                                    <div class="w-16 h-16 rounded-full bg-brand-500 border-4 border-slate-900"></div>
+                                    <div class="absolute inset-0 rounded-full border border-slate-800/50 m-4"></div>
+                                    <div class="absolute inset-0 rounded-full border border-slate-800/50 m-8"></div>
+                                    <div class="absolute inset-0 rounded-full border border-slate-800/50 m-12"></div>
+                                </div>
+                                
+                                <div class="mt-8 text-center w-full">
+                                    <h5 class="text-white font-bold text-xl truncate">Atmósfera Matutina IA</h5>
+                                    <p class="text-brand-400 text-sm mt-1">Generado Exclusivamente para Ti</p>
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div class="w-full mt-6">
+                                    <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                        <div class="h-full bg-brand-500 w-1/3 rounded-full"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-slate-500 mt-2 font-mono">
+                                        <span>01:24</span>
+                                        <span>03:45</span>
+                                    </div>
+                                </div>
+
+                                <!-- Controls -->
+                                <div class="flex items-center justify-center gap-6 mt-6 w-full">
+                                    <button class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-shuffle"></i></button>
+                                    <button class="text-slate-400 hover:text-white transition text-xl"><i class="fa-solid fa-backward-step"></i></button>
+                                    <button class="w-14 h-14 bg-brand-500 rounded-full flex items-center justify-center text-white text-xl hover:bg-brand-400 transition shadow-lg shadow-brand-500/30 transform hover:scale-105">
+                                        <i class="fa-solid fa-pause"></i>
+                                    </button>
+                                    <button class="text-slate-400 hover:text-white transition text-xl"><i class="fa-solid fa-forward-step"></i></button>
+                                    <button class="text-brand-400 hover:text-white transition"><i class="fa-solid fa-repeat"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Web App Label overlay -->
+                            <div class="absolute bottom-4 left-0 right-0 text-center">
+                                <span class="bg-slate-800/80 backdrop-blur text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">
+                                    Web App desarrollada por Dj Ronny Woods
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="beneficios" class="py-24 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-white mb-6">Música a la Medida de <span class="text-brand-400">Tu Industria</span></h2>
+                <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+                    Entrenamos modelos de IA para generar los géneros, tempos y atmósferas exactas que tus clientes necesitan para tener la mejor experiencia en tu local.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Industry 1 -->
+                <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="h-40 bg-slate-800 rounded-xl mb-6 overflow-hidden relative">
+                        <!-- Placeholder image using unsplash via placehold.co concept -->
+                        <img src="https://placehold.co/400x300/1e293b/38bdf8?text=Hoteles+y+Spas" alt="Hoteles" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+                        <i class="fa-solid fa-spa absolute bottom-4 left-4 text-3xl text-brand-300 drop-shadow-md"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Hoteles & Spas</h3>
+                    <p class="text-slate-400 text-sm">Atmósferas Lo-Fi, Ambient y sonidos de la naturaleza generados sintéticamente para máxima relajación.</p>
+                </div>
+
+                <!-- Industry 2 -->
+                <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="h-40 bg-slate-800 rounded-xl mb-6 overflow-hidden relative">
+                        <img src="https://placehold.co/400x300/1e293b/a78bfa?text=Retail" alt="Tiendas" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+                        <i class="fa-solid fa-bag-shopping absolute bottom-4 left-4 text-3xl text-brand-300 drop-shadow-md"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Tiendas de Ropa</h3>
+                    <p class="text-slate-400 text-sm">Beats electrónicos, Deep House e Indie Pop diseñado para mantener al cliente con energía y dispuesto a comprar.</p>
+                </div>
+
+                <!-- Industry 3 -->
+                <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="h-40 bg-slate-800 rounded-xl mb-6 overflow-hidden relative">
+                        <img src="https://placehold.co/400x300/1e293b/fb923c?text=Restaurantes" alt="Restaurantes" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+                        <i class="fa-solid fa-utensils absolute bottom-4 left-4 text-3xl text-brand-300 drop-shadow-md"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Restaurantes</h3>
+                    <p class="text-slate-400 text-sm">Jazz contemporáneo, Bossa Nova sintética o acústica suave que permite la conversación sin aburrir.</p>
+                </div>
+
+                <!-- Industry 4 -->
+                <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="h-40 bg-slate-800 rounded-xl mb-6 overflow-hidden relative">
+                        <img src="https://placehold.co/400x300/1e293b/34d399?text=Oficinas" alt="Oficinas" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+                        <i class="fa-solid fa-building absolute bottom-4 left-4 text-3xl text-brand-300 drop-shadow-md"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Edificios / Clínicas</h3>
+                    <p class="text-slate-400 text-sm">Música de fondo sutil para lobbies de apartamentos nuevos, consultorios dentales y salas de espera.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark relative border-y border-brand-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-slate-900 to-brand-950 rounded-3xl p-8 md:p-12 border border-brand-800/50 shadow-2xl flex flex-col md:flex-row items-center gap-10">
+                <div class="md:w-2/3">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-brands fa-html5 text-orange-500 text-3xl"></i>
+                        <i class="fa-brands fa-js text-yellow-400 text-3xl"></i>
+                        <span class="bg-brand-500/20 text-brand-300 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border border-brand-500/30">Desarrollo Propio</span>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-white mb-4">Tu Propia Web App de Reproducción</h2>
+                    <p class="text-slate-300 mb-6 text-lg">
+                        No te entrego simples archivos MP3. Como Desarrollador Web, construyo una <strong>aplicación web personalizada</strong> con el logo y colores de tu negocio. 
+                        Desde ahí, tu personal podrá gestionar las playlists, separar la música por momentos del día (Mañana, Tarde, Noche) y reproducir de forma continua y aleatoria las 48 horas de música generadas.
+                    </p>
+                    <ul class="space-y-2 text-slate-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Accesible desde cualquier PC, tablet o celular en tu local.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Cero anuncios, cero interrupciones.</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-400"></i> Diseño a la medida de la identidad visual de tu marca.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="w-48 h-48 bg-brand-500 rounded-full blur-[80px] absolute opacity-20"></div>
+                    <img src="https://placehold.co/400x500/0f172a/2dd4bf?text=Code+&+Music" alt="Web Development" class="rounded-xl relative z-10 border border-slate-700 shadow-xl transform rotate-3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="relative py-32 bg-dark hero-bg overflow-hidden border-t border-slate-800">
+        <!-- Abstract Animated Background Elements -->
+        <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-brand-600/10 rounded-full mix-blend-screen filter blur-[100px] animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full mix-blend-screen filter blur-[100px] animate-pulse" style="animation-delay: 1s;"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">
+                El Futuro Suena a <br/>
+                <span class="text-brand-400">Tu Negocio</span>
+            </h2>
+            <p class="text-xl text-slate-300 mb-10 font-light">
+                Invierte una sola vez en la identidad sonora de tu marca. Deja de alquilar música genérica y pagar tarifas abusivas de ACAM. Obtén 48 horas de música original hecha con IA y tu propia Web App.
+            </p>
+            
+            <div class="glass-panel p-8 rounded-3xl border border-brand-500/30 max-w-2xl mx-auto">
+                <h3 class="text-2xl font-bold text-white mb-6">Inicia tu Producción Hoy</h3>
+                
+                <form class="space-y-4 text-left" onsubmit="event.preventDefault(); alertCustom('¡Gracias por tu interés! Dj Ronny Woods se pondrá en contacto pronto.');">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Nombre del Negocio</label>
+                            <input type="text" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="Ej. Hotel Paraíso" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Tipo de Industria</label>
+                            <select class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors appearance-none" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="restaurante">Restaurante / Cafetería</option>
+                                <option value="hotel">Hotel / Spa</option>
+                                <option value="tienda">Tienda Retail</option>
+                                <option value="oficina">Oficina / Clínica</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-1">Correo Electrónico</label>
+                        <input type="email" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors" placeholder="contacto@tunegocio.com" required>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 hover:to-brand-300 text-white font-bold py-4 rounded-lg mt-4 transition-all shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)]">
+                        Solicitar Presupuesto
+                    </button>
+                    <p class="text-xs text-center text-slate-500 mt-4">
+                        Al enviar, garantizo una respuesta directa de Dj Ronny Woods.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold font-display text-sm">
+                    RW
+                </div>
+                <div>
+                    <span class="font-display font-bold text-white block">Dj Ronny Woods</span>
+                    <span class="text-slate-500 text-xs">Music & Web Developer</span>
+                </div>
+            </div>
+            
+            <div class="text-slate-400 text-sm text-center md:text-left">
+                &copy; 2026 Music Business Production. Todos los derechos reservados.
+                <br>
+                <span class="text-xs text-slate-600 mt-1 block">Hecho con <i class="fa-solid fa-heart text-red-900 mx-1"></i> y IA en Costa Rica.</span>
+            </div>
+            
+            <div class="flex space-x-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:bg-slate-800 transition-colors">
+                    <i class="fa-brands fa-instagram text-lg"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:bg-slate-800 transition-colors">
+                    <i class="fa-brands fa-linkedin-in text-lg"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:bg-slate-800 transition-colors">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Alert Modal -->
+    <div id="custom-alert" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+        <div class="bg-slate-900 border border-brand-500/30 rounded-2xl p-8 max-w-md w-full shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="alert-box">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-brand-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-500/50">
+                    <i class="fa-solid fa-check text-2xl text-brand-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">¡Mensaje Enviado!</h3>
+                <p id="alert-message" class="text-slate-300 mb-6"></p>
+                <button onclick="closeAlert()" class="bg-brand-500 hover:bg-brand-600 text-white px-6 py-2 rounded-full font-medium transition-colors w-full">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-lg', 'bg-slate-900/90');
+                nav.classList.remove('glass-panel');
+            } else {
+                nav.classList.remove('shadow-lg', 'bg-slate-900/90');
+                nav.classList.add('glass-panel');
+            }
+        });
+
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Custom Alert Logic (Replacing standard alert)
+        function alertCustom(message) {
+            const modal = document.getElementById('custom-alert');
+            const alertBox = document.getElementById('alert-box');
+            document.getElementById('alert-message').innerText = message;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Small delay for animation
+            setTimeout(() => {
+                alertBox.classList.remove('scale-95', 'opacity-0');
+                alertBox.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeAlert() {
+            const modal = document.getElementById('custom-alert');
+            const alertBox = document.getElementById('alert-box');
+            
+            alertBox.classList.remove('scale-100', 'opacity-100');
+            alertBox.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
