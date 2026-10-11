@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextContact | Tarjetas de Presentación Inteligentes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .blob-bg {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-2">
+                    <i class="ph-fill ph-qr-code text-indigo-600 text-3xl"></i>
+                    <span class="font-bold text-2xl tracking-tight text-slate-900">NextContact</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#beneficios" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Beneficios</a>
+                    <a href="#como-funciona" class="text-slate-600 hover:text-indigo-600 font-medium transition-colors">Cómo funciona</a>
+                    <a href="#wstudio3d" class="text-indigo-600 hover:text-indigo-800 font-bold transition-colors flex items-center gap-1">Desarrollo a Medida <i class="ph-bold ph-rocket-launch"></i></a>
+                </div>
+                <div class="flex items-center">
+                    <!-- Este botón debería llevar a tu app generadora, usamos generador_vcard.html como enlace -->
+                    <a href="generador_vcard.html" class="bg-slate-900 hover:bg-slate-800 text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg shadow-slate-900/20 transform hover:-translate-y-0.5">
+                        Crear mi QR <i class="ph-bold ph-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Decoraciones de fondo -->
+        <div class="blob-bg bg-indigo-300 w-96 h-96 rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="blob-bg bg-pink-300 w-96 h-96 rounded-full bottom-0 right-0 translate-x-1/3 translate-y-1/3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 font-medium text-sm mb-8">
+                <span class="flex h-2 w-2 rounded-full bg-indigo-600"></span>
+                El fin de las tarjetas de papel — 100% Gratis y Open Source
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight">
+                Entra a la agenda de tu cliente <br class="hidden md:block" />
+                <span class="gradient-text">en un solo escaneo.</span>
+            </h1>
+            
+            <p class="mt-4 max-w-2xl text-xl text-slate-600 mx-auto mb-10">
+                Crea Códigos QR Premium (vCard) para tu empresa. Sin registros, sin suscripciones y sin costos ocultos. Una iniciativa impulsada por inteligencia artificial para la comunidad profesional.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="generador_vcard.html" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-xl shadow-indigo-600/30 transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                    Crear mi QR Gratis <i class="ph-bold ph-magic-wand"></i>
+                </a>
+                <a href="#wstudio3d" class="bg-white border-2 border-slate-200 text-slate-800 hover:border-slate-300 hover:bg-slate-50 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2">
+                    Conocer al Desarrollador <i class="ph-bold ph-code"></i>
+                </a>
+            </div>
+
+            <!-- Mockup visual -->
+            <div class="mt-16 mx-auto max-w-4xl relative">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-50 to-transparent z-10 h-full w-full"></div>
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Person scanning QR on phone" class="rounded-2xl shadow-2xl border border-slate-200 opacity-90 object-cover h-96 w-full object-center">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Beneficios -->
+    <section id="beneficios" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">¿Por qué cambiar a contacto digital?</h2>
+                <p class="mt-4 text-lg text-slate-600">Las tarjetas de papel se pierden. El contacto en el móvil, perdura.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Beneficio 1 -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-infinity"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">100% Gratis y Privado</h3>
+                    <p class="text-slate-600">Todo se procesa en tu navegador. No guardamos tus datos, no hay suscripciones y el código generado funcionará para siempre de forma estática.</p>
+                </div>
+                <!-- Beneficio 2 -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-palette"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Diseño Premium</h3>
+                    <p class="text-slate-600">Olvídate de los códigos aburridos en blanco y negro. Añadimos tu logo, usamos colores corporativos y entregamos en formato Vectorial (SVG).</p>
+                </div>
+                <!-- Beneficio 3 -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div class="w-14 h-14 bg-green-100 text-green-600 rounded-xl flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Ecológico y Moderno</h3>
+                    <p class="text-slate-600">Proyecta una imagen de innovación tecnológica mientras reduces el uso de papel en tu empresa. Ideal para firmas de abogados, clínicas y agencias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="como-funciona" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="blob-bg bg-indigo-500 w-96 h-96 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold sm:text-4xl">Cómo funciona la magia</h2>
+                <p class="mt-4 text-lg text-slate-400">En 3 simples pasos, tu cliente tendrá tus datos listos para llamar.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="relative">
+                    <div class="w-20 h-20 mx-auto bg-slate-800 rounded-full flex items-center justify-center text-4xl text-indigo-400 border-4 border-slate-900 shadow-[0_0_0_4px_rgba(79,70,229,0.2)] mb-6 z-10 relative">1</div>
+                    <h3 class="text-xl font-bold mb-2">Escanean el QR</h3>
+                    <p class="text-slate-400">El cliente abre la cámara de su celular y apunta a tu gafete, firma de email o celular.</p>
+                </div>
+                <div class="relative">
+                    <div class="hidden md:block absolute top-10 left-1/2 w-full h-0.5 bg-slate-800 -z-0"></div>
+                    <div class="w-20 h-20 mx-auto bg-slate-800 rounded-full flex items-center justify-center text-4xl text-pink-400 border-4 border-slate-900 shadow-[0_0_0_4px_rgba(236,72,153,0.2)] mb-6 z-10 relative">2</div>
+                    <h3 class="text-xl font-bold mb-2">Pantalla de Contacto</h3>
+                    <p class="text-slate-400">Sin instalar apps, se abre la agenda del teléfono con tu nombre, foto, empresa y número pre-llenados.</p>
+                </div>
+                <div class="relative">
+                    <div class="hidden md:block absolute top-10 right-1/2 w-full h-0.5 bg-slate-800 -z-0"></div>
+                    <div class="w-20 h-20 mx-auto bg-indigo-600 rounded-full flex items-center justify-center text-4xl text-white border-4 border-slate-900 shadow-[0_0_0_4px_rgba(79,70,229,0.5)] mb-6 z-10 relative">3</div>
+                    <h3 class="text-xl font-bold mb-2">Guardar</h3>
+                    <p class="text-slate-400">Un clic en "Guardar" y estás permanentemente en sus contactos. Listo para hacer negocios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WStudio3D Call to Action (Reemplaza a Precios) -->
+    <section id="wstudio3d" class="py-24 bg-slate-50 relative overflow-hidden">
+        <!-- Elementos decorativos -->
+        <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-96 h-96 bg-gradient-to-br from-indigo-200 to-purple-200 rounded-full blur-3xl opacity-50"></div>
+        <div class="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-96 h-96 bg-gradient-to-tr from-pink-200 to-orange-200 rounded-full blur-3xl opacity-50"></div>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-2xl border border-slate-100 flex flex-col md:flex-row items-center gap-12">
+                
+                <!-- Logo / Branding WStudio3D -->
+                <div class="w-full md:w-2/5 flex flex-col items-center text-center">
+                    <div class="w-24 h-24 bg-slate-900 rounded-3xl flex items-center justify-center mb-6 shadow-xl transform rotate-3">
+                        <i class="ph-bold ph-cube text-5xl text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 to-pink-400"></i>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">WStudio<span class="text-indigo-600">3D</span></h2>
+                    <p class="text-slate-500 font-medium mt-2">IA & Web App Development</p>
+                </div>
+
+                <!-- Copy / Pitch -->
+                <div class="w-full md:w-3/5 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-50 text-pink-600 font-bold text-xs uppercase tracking-wider mb-4 border border-pink-100">
+                        Patrocinador Oficial
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">¿Tu empresa necesita escalar con tecnología?</h3>
+                    <p class="text-slate-600 mb-6 text-lg">
+                        NextContact es un proyecto de código abierto desarrollado por <strong class="text-slate-900">WStudio3D</strong> para demostrar el poder del desarrollo web moderno. 
+                        Nos especializamos en crear soluciones web complejas, integraciones con Inteligencia Artificial (LLMs), automatizaciones y aplicaciones a la medida para grandes corporativos.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="https://wstudio3d.com" target="_blank" class="bg-slate-900 hover:bg-slate-800 text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-lg flex items-center justify-center gap-2 group">
+                            Visitar WStudio3D.com 
+                            <i class="ph-bold ph-arrow-up-right group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                        </a>
+                        <a href="mailto:contacto@wstudio3d.com" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-8 py-3.5 rounded-full font-bold transition-all flex items-center justify-center gap-2">
+                            Agendar Consultoría
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <i class="ph-fill ph-qr-code text-indigo-500 text-2xl"></i>
+                    <span class="font-bold text-xl text-white">NextContact</span>
+                    <span class="text-sm border border-slate-700 px-2 py-0.5 rounded-md text-slate-500 ml-2">by WStudio3D</span>
+                </div>
+                <div class="flex gap-6">
+                    <a href="https://wstudio3d.com" target="_blank" class="hover:text-white transition-colors">WStudio3D.com</a>
+                    <a href="https://github.com/tu-usuario" target="_blank" class="hover:text-white transition-colors flex items-center gap-1"><i class="ph-fill ph-github-logo"></i> Código Fuente</a>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="text-slate-500 hover:text-white transition-colors text-2xl"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="#" class="text-slate-500 hover:text-white transition-colors text-2xl"><i class="ph-fill ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-sm text-slate-600">
+                &copy; 2026 Creado con ❤️ por WStudio3D. Distribuido como software libre.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
