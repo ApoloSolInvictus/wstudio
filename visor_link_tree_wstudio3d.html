@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Enlaces | WStudio3D</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        .link-btn {
+            transition: all 0.3s ease;
+        }
+        .link-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body id="body" class="py-12 px-6 sm:px-8 w-full max-w-md mx-auto relative overflow-y-auto hidden">
+    
+    <!-- Estos contenedores se llenan por arte de magia usando JavaScript -->
+    <div id="profile-container" class="flex flex-col items-center text-center w-full mb-8 relative z-10 animate-[fadeIn_0.5s_ease-out]">
+        <!-- Foto y Bio -->
+    </div>
+
+    <div id="links-container" class="w-full flex flex-col gap-4 relative z-10">
+        <!-- Botones -->
+    </div>
+    
+    <div class="mt-12 mb-4 text-center opacity-40 text-[10px] uppercase tracking-widest font-bold">
+        Alojado gratis por WStudio3D
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.getElementById('body');
+            const profileContainer = document.getElementById('profile-container');
+            const linksContainer = document.getElementById('links-container');
+
+            // 1. Obtener la data comprimida de la URL (el parámetro ?d=...)
+            const urlParams = new URLSearchParams(window.location.search);
+            const encodedData = urlParams.get('d');
+
+            if (!encodedData) {
+                body.classList.remove('hidden');
+                body.innerHTML = '<div class="flex h-screen items-center justify-center p-8 text-center"><p class="text-red-500 font-bold">Error: No se encontraron datos en el enlace.</p></div>';
+                return;
+            }
+
+            try {
+                // 2. Descomprimir la data (Base64 -> URI -> JSON)
+                const jsonString = decodeURIComponent(atob(encodedData));
+                const data = JSON.parse(jsonString);
+
+                // 3. Aplicar colores del Tema
+                body.style.backgroundColor = data.tb || '#f8fafc';
+                body.style.color = data.tt || '#0f172a';
+                
+                // 4. Construir el Perfil (Foto o Iniciales)
+                let profileHTML = '';
+                if (data.i) {
+                    profileHTML += `
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full mb-5 shadow-xl border-4 overflow-hidden" style="border-color: ${data.bb}">
+                        <img src="${data.i}" alt="${data.n}" class="w-full h-full object-cover" onerror="this.style.display='none'; document.getElementById('fallback-initial').style.display='flex';">
+                        <div id="fallback-initial" class="hidden w-full h-full items-center justify-center text-4xl font-bold uppercase" style="background-color: ${data.bb}; color: ${data.bt}">
+                            ${data.n.charAt(0)}
+                        </div>
+                    </div>`;
+                } else {
+                    profileHTML += `
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full mb-5 shadow-xl border-4 flex items-center justify-center text-4xl font-bold uppercase" style="border-color: ${data.bb}; background-color: ${data.bb}; color: ${data.bt}">
+                        ${data.n.charAt(0)}
+                    </div>`;
+                }
+                
+                profileHTML += `<h1 class="text-2xl font-extrabold tracking-tight mb-2">${data.n}</h1>`;
+                if (data.b) {
+                    profileHTML += `<p class="text-sm opacity-90 max-w-[280px] leading-relaxed">${data.b.replace(/\n/g, '<br>')}</p>`;
+                }
+                profileContainer.innerHTML = profileHTML;
+
+                // 5. Construir los Enlaces
+                let linksHTML = '';
+                if (data.l && data.l.length > 0) {
+                    data.l.forEach(link => {
+                        linksHTML += `
+                        <a href="${link.u}" target="_blank" class="link-btn block w-full text-center py-4 px-6 rounded-2xl font-semibold shadow-sm border border-black/5" style="background-color: ${data.bb}; color: ${data.bt};">
+                            ${link.t}
+                        </a>`;
+                    });
+                } else {
+                    linksHTML = `<div class="text-center opacity-50 text-sm py-8 border-2 border-dashed rounded-xl" style="border-color: currentColor">Sin enlaces configurados</div>`;
+                }
+                linksContainer.innerHTML = linksHTML;
+
+                // Mostrar todo el contenido animado
+                body.classList.remove('hidden');
+
+            } catch (e) {
+                console.error("Error decodificando enlace:", e);
+                body.classList.remove('hidden');
+                body.innerHTML = '<div class="flex h-screen items-center justify-center p-8 text-center"><p class="text-red-500 font-bold">Error: El enlace parece estar roto o modificado incorrectamente.</p></div>';
+            }
+        });
+    </script>
+</body>
+</html>
