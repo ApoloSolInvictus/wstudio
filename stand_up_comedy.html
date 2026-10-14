@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stand Up Comedy - 100 Chistes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+            --bg-color: #0f172a;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: white;
+            overflow: hidden; /* Prevent scrolling, handle it in the slider */
+            touch-action: pan-y; /* Allow vertical scroll if needed elsewhere, but mostly handled by JS for slider */
+        }
+
+        .title-font {
+            font-family: 'Permanent Marker', cursive;
+        }
+
+        .slider-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            border-radius: 1.5rem;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.1), inset 0 0 20px rgba(255, 0, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.05);
+            will-change: transform, opacity;
+            pointer-events: none; /* Only the active slide should receive clicks if any */
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-100%) scale(0.8) rotateY(15deg);
+            z-index: 5;
+        }
+
+        .slide.next {
+            opacity: 0;
+            transform: translateX(100%) scale(0.8) rotateY(-15deg);
+            z-index: 5;
+        }
+
+        .neon-text-blue {
+            text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+        }
+
+        .neon-text-pink {
+            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+        }
+
+        .joke-text {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .joke-number {
+            font-size: clamp(4rem, 15vw, 8rem);
+            opacity: 0.05;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 900;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content-z {
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Indicadores de progreso */
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col selection:bg-pink-500 selection:text-white">
+
+    <header class="w-full p-4 flex justify-between items-center z-20 bg-slate-900/80 backdrop-blur-sm border-b border-white/10 shrink-0">
+        <h1 class="text-2xl md:text-4xl title-font neon-text-blue tracking-wider flex items-center gap-2">
+            🎤 Stand Up
+        </h1>
+        <div class="text-sm md:text-base font-bold text-gray-400 bg-slate-800 px-4 py-1 rounded-full border border-gray-700">
+            <span id="current-count" class="text-white">1</span> / 100
+        </div>
+    </header>
+
+    <!-- Barra de progreso -->
+    <div class="w-full bg-slate-800 h-1 shrink-0">
+        <div id="progress" class="progress-bar w-0"></div>
+    </div>
+
+    <main class="flex-grow relative overflow-hidden flex items-center justify-center p-4 md:p-12 w-full max-w-6xl mx-auto" id="main-container">
+        
+        <div id="slider" class="slider-container relative w-full h-full max-h-[70vh]">
+            <!-- Los slides se inyectarán aquí vía JavaScript -->
+        </div>
+
+        <!-- Controles Flotantes para Desktop -->
+        <button id="btn-prev" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 bg-slate-800/50 hover:bg-slate-700 p-3 md:p-4 rounded-full backdrop-blur-md border border-white/10 transition-all z-20 hidden md:block hover:scale-110 active:scale-95 group">
+            <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-300 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+
+        <button id="btn-next" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 bg-slate-800/50 hover:bg-slate-700 p-3 md:p-4 rounded-full backdrop-blur-md border border-white/10 transition-all z-20 hidden md:block hover:scale-110 active:scale-95 group">
+            <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-300 group-hover:text-pink-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+    </main>
+
+    <footer class="w-full p-4 text-center text-gray-500 text-xs md:text-sm z-20 shrink-0">
+        <p class="hidden md:block">Usa las <kbd class="bg-gray-800 px-2 py-1 rounded text-gray-300">flechas</kbd> o haz clic en los botones para navegar.</p>
+        <p class="block md:hidden">Desliza <span class="text-cyan-400">←</span> o <span class="text-pink-400">→</span> para cambiar de chiste.</p>
+    </footer>
+
+    <script>
+        // Array con 100 chistes cortos
+        const jokes = [
+            "¿Por qué el mar no se seca? Porque no tiene toalla.",
+            "¿Qué le dice un grano de arena a otro en el desierto? Tío, creo que nos siguen.",
+            "—Doctor, soy asmático, ¿es grave?<br>—No amigo, es esdrújula.",
+            "¿Cuál es el colmo del atún? Que le den la lata.",
+            "No cabe duda... y Duda se fue caminando.",
+            "—Soy celíaca.<br>—Encantado, yo Antoniaco.",
+            "¿Qué le regaló Batman a su mamá por Navidad? Una BatiDora.",
+            "Iba a contar un chiste sobre sodio... pero Na.",
+            "¿De qué se murió el osito? De tous.",
+            "¿Qué le dice un árbol a otro? ¡Nos dejaron plantados!",
+            "¿Qué le dice un pez a otro? Nada.",
+            "¿Cuál es el colmo de un electricista? Que su esposa se llame Luz.",
+            "¿Por qué las focas miran siempre hacia arriba? Porque ahí están los focos.",
+            "¿Qué le dice una iguana a su hermana gemela? Somos iguanitas.",
+            "Había una vez un perro llamado Pegamento, se cayó y se pegó.",
+            "Mamá, en el colegio me dicen despistado. Niño, ¡tú vives en la casa de enfrente!",
+            "¿Qué hace una abeja en el gimnasio? ¡Zum-ba!",
+            "¿Cuál es el colmo de un farmacéutico? Que su mujer se llame Remedios.",
+            "¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter.",
+            "¿Qué hace un perro con un taladro? Taladrando.",
+            "¿Qué le dice una pared a la otra? Nos vemos en la esquina.",
+            "¿Cómo se dice pañuelo en japonés? Saka-moko.",
+            "¿Cuál es el colmo de un jardinero? Que lo dejen plantado.",
+            "¿Qué le dice una taza a otra? ¿Qué taza haciendo?",
+            "¿Por qué la escoba siempre está feliz? Porque va barriendo.",
+            "¿Qué es un punto verde en la esquina? Una arveja castigada.",
+            "¿Cuál es el pez que huele mucho? El Pez-toso.",
+            "¿Por qué el libro de matemáticas se suicidó? Porque tenía muchos problemas.",
+            "¿Qué le dice un semáforo a otro? No me mires que me estoy cambiando.",
+            "¿Qué hace un vampiro conduciendo un tractor? Sembrando el pánico.",
+            "¿Cómo se despide un químico? Ácido un placer.",
+            "¿Cuál es el colmo de un arquitecto? Construir castillos en el aire.",
+            "¿Qué le dice el 1 al 10? Para ser como yo tienes que ser sincero.",
+            "¿Qué le dice el mar a la playa? ¡Ola!",
+            "¿Qué hace una vaca con los ojos cerrados? Leche concentrada.",
+            "Mamá, mamá, ¡el abuelo se cayó! ¿Y qué hiciste? Reírme.",
+            "¿Cómo maldice un pollito? ¡Caldito sea!",
+            "¿Qué le dice una uva verde a una morada? ¡Respira, respira!",
+            "¿Cuál es la fruta más paciente? La espera.",
+            "¿Qué le dijo una pulga a otra pulga? ¿Vamos a pie o esperamos al perro?",
+            "¿Cuál es el animal que más tarda en quitarse los zapatos? El ciempiés.",
+            "¿Qué hace un mudo bailando? Mudanzas.",
+            "¿Por qué los elefantes no usan crema hidratante? Porque tienen la piel gruesa.",
+            "Papá, papá, ¿los marcianos son amigos o enemigos? ¿Por qué? Porque se llevan a la abuela.",
+            "¿Qué le dice una impresora a otra? ¿Esa hoja es tuya o es impresión mía?",
+            "¿Por qué Bob Esponja no va al gimnasio? Porque ya está cuadrado.",
+            "¿Qué le dice un espagueti a otro? ¡El cuerpo me pide salsa!",
+            "¿Cómo se llama el primo vegano de Bruce Lee? Broco Lee.",
+            "¿Cuál es el baile favorito del tomate? La salsa.",
+            "¿Qué hace un piojo en la cabeza de un calvo? Patinaje sobre hielo.",
+            "¿Qué le dice el café al azúcar? Sin ti mi vida es amarga.",
+            "¿Cuál es el colmo de un policía? Que lo asalte una duda.",
+            "¿Por qué los diabéticos no pueden vengarse? Porque la venganza es dulce.",
+            "¿Qué hace una persona con un sobre de kétchup en la oreja? Escuchando salsa.",
+            "¿Cuál es el colmo de un bombero? Tener una esposa ardiente.",
+            "¿Qué hace una vaca en un escenario? ¡Muuuusica!",
+            "¿Cuál es el coche favorito de un perro? El fur-goneta.",
+            "¿Por qué las arañas no se conectan a internet? Porque ya tienen su propia red.",
+            "¿Qué le dice un plátano a otro? Estás madurando.",
+            "¿Qué hace un oso en un parque de diversiones? ¡Pasándolo de oso!",
+            "¿Cuál es el colmo de un peluquero? Perder el tren por un pelito.",
+            "¿Cómo se dice pelo sucio en chino? Chin-cham-pu.",
+            "¿Qué hace un perro al sol? Un perrito caliente.",
+            "¿Cuál es el colmo de un zapatero? Atarse los cordones con trabajo.",
+            "¿Qué hace un gato en una computadora? Usando el mouse.",
+            "¿Qué le dice un chinche a otro chinche? Te amo chin-cheramente.",
+            "¿Cuál es el animal más antiguo? La cebra, porque está en blanco y negro.",
+            "¿Qué le dice un billete de 100 a una moneda? Tú no tienes valor.",
+            "¿Por qué las monjas no usan sandalias? Porque son muy devotas.",
+            "¿Qué hace un mago después de comer? Engorda por arte de magia.",
+            "¿Cómo llama un vaquero a su hija? ¡Hiiiiiiii-ja!",
+            "¿Qué hace una mosca en un gimnasio? La mosca-latura.",
+            "¿Cuál es el animal más tonto? El oso polar, porque está en el polo y no viaja.",
+            "¿Qué hace una fresa en el semáforo? Esperando a que se ponga verde.",
+            "¿Qué hace un pollito en una iglesia? Pío, pío.",
+            "¿Cuál es el planeta que más asusta? El planeta del terror.",
+            "¿Qué le dice un gusano a otro? Voy a dar una vuelta a la manzana.",
+            "¿Cómo se llama el campeón de buceo japonés? Toko Fondo.",
+            "¿Cuál es el pez que da luz? El pez-billa.",
+            "¿Por qué el cielo es azul? Porque los peces hacen 'blu blu blu'.",
+            "¿Qué hace un ladrón leyendo un libro de matemáticas? Robando problemas.",
+            "¿Qué le dice un techo a otro? Techo de menos.",
+            "¿Cuál es el colmo de un astronauta? Que se queje de falta de espacio.",
+            "¿Qué hace un pez en el cine? Viendo una película de aletas.",
+            "¿Cuál es el colmo de un enano? Que un policía le diga ¡alto!",
+            "¿Qué le dice un pato a otro pato? ¡Estamos empatados!",
+            "¿Por qué el ordenador fue al médico? Porque tenía un virus.",
+            "¿Qué hace una serpiente en un atasco? Pita.",
+            "¿Cuál es el colmo de un ciego? Enamorarse a primera vista.",
+            "¿Qué hace una tortuga en un árbol? Esperando a que maduren las hojas.",
+            "¿Qué hace un huevo en el desierto? Esperando a ser frito.",
+            "¿Cuál es el colmo de un libro? Que se le caigan las hojas en otoño.",
+            "¿Qué hace un fantasma en una fiesta? Asusta a la competencia.",
+            "¿Qué hace un reloj en un avión? Volando el tiempo.",
+            "¿Cuál es el animal más rápido? El piojo, porque siempre está a la cabeza.",
+            "¿Qué hace un gato cuando tiene sed? Toma miau-gua.",
+            "¿Qué le dice una llave a otra? Tú eres la clave.",
+            "¿Cuál es el colmo de un fotógrafo? Que su hijo no se deje retratar.",
+            "¿Qué hace un árbol con internet? Se conecta a la rama.",
+            "¿Cuál es el colmo de un programador? No poder salir de un bucle infinito."
+        ];
+
+        const slider = document.getElementById('slider');
+        const currentCountEl = document.getElementById('current-count');
+        const progressEl = document.getElementById('progress');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const mainContainer = document.getElementById('main-container');
+        
+        let currentIndex = 0;
+        let slides = [];
+
+        function initSlider() {
+            jokes.forEach((joke, index) => {
+                const slide = document.createElement('div');
+                // Asignar clases de acuerdo a la posición inicial
+                let positionClass = 'next';
+                if (index === 0) positionClass = 'active';
+                
+                slide.className = `slide ${positionClass}`;
+                slide.innerHTML = `
+                    <div class="joke-number text-slate-700 select-none">${index + 1}</div>
+                    <div class="content-z max-w-3xl w-full">
+                        <p class="joke-text text-white drop-shadow-md select-none">${joke}</p>
+                    </div>
+                `;
+                slider.appendChild(slide);
+                slides.push(slide);
+            });
+            updateUI();
+        }
+
+        function updateUI() {
+            // Actualizar contadores y barra de progreso
+            currentCountEl.textContent = currentIndex + 1;
+            progressEl.style.width = `${((currentIndex + 1) / jokes.length) * 100}%`;
+
+            // Actualizar clases de los slides para la animación 3D
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev', 'next');
+                if (index === currentIndex) {
+                    slide.classList.add('active');
+                } else if (index < currentIndex) {
+                    slide.classList.add('prev');
+                } else {
+                    slide.classList.add('next');
+                }
+            });
+
+            // Control visual de botones
+            btnPrev.style.opacity = currentIndex === 0 ? '0.3' : '1';
+            btnPrev.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+            
+            btnNext.style.opacity = currentIndex === jokes.length - 1 ? '0.3' : '1';
+            btnNext.style.pointerEvents = currentIndex === jokes.length - 1 ? 'none' : 'auto';
+        }
+
+        function goToNext() {
+            if (currentIndex < jokes.length - 1) {
+                currentIndex++;
+                updateUI();
+            }
+        }
+
+        function goToPrev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateUI();
+            }
+        }
+
+        // Mouse Clicks
+        btnNext.addEventListener('click', goToNext);
+        btnPrev.addEventListener('click', goToPrev);
+
+        // Keyboard support
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') goToNext();
+            if (e.key === 'ArrowLeft') goToPrev();
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        mainContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        mainContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const minSwipeDistance = 40; // Distancia mínima para considerar que es un swipe
+            if (touchStartX - touchEndX > minSwipeDistance) {
+                // Deslizar a la izquierda (Siguiente)
+                goToNext();
+            }
+            if (touchEndX - touchStartX > minSwipeDistance) {
+                // Deslizar a la derecha (Anterior)
+                goToPrev();
+            }
+        }
+
+        // Iniciar la aplicación cuando cargue el DOM
+        document.addEventListener('DOMContentLoaded', initSlider);
+        
+    </script>
+</body>
+</html>
