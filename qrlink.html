@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador Link Tree y QR Pro</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- QR Code Styling Library -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 100%;
+            height: 40px;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            padding: 0;
+            overflow: hidden;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 0.5rem; }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 p-4 md:p-8 bg-slate-50">
+
+    <header class="max-w-6xl mx-auto mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+            <h1 class="text-4xl font-extrabold text-slate-900 flex items-center justify-center md:justify-start gap-3">
+                <i class="ph-fill ph-link text-indigo-600"></i>
+                Generador QR <span class="text-indigo-600">de Enlaces</span>
+            </h1>
+            <p class="text-slate-500 mt-2">Crea códigos QR estáticos y premium para cualquier URL. Funcionarán para siempre.</p>
+        </div>
+        <a href="landing_page.html" class="text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors flex items-center gap-1">
+            <i class="ph-bold ph-arrow-left"></i> Volver al inicio
+        </a>
+    </header>
+
+    <main class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 items-start">
+        
+        <!-- COLUMNA IZQUIERDA: Controles -->
+        <div class="w-full lg:w-2/3 space-y-6">
+            
+            <!-- TARJETA 1: Configuración de URL -->
+            <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
+                    <i class="ph-fill ph-link-simple text-blue-500"></i>
+                    Tu Enlace Destino
+                </h2>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Pega aquí el enlace que deseas compartir *</label>
+                    <input type="url" id="link-url" class="w-full rounded-xl border-2 border-slate-300 bg-slate-50 px-4 py-4 text-lg focus:bg-white focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-400 font-medium" placeholder="Ej. https://mi-empresa.com/promocion" value="https://">
+                    <div class="flex items-start gap-2 mt-3 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                        <i class="ph-fill ph-info text-blue-500 text-lg mt-0.5"></i>
+                        <p class="text-sm text-blue-800 leading-relaxed">
+                            <strong>QR Estático:</strong> El código apuntará directamente a este enlace. Sin intermediarios, sin caducidad. Mientras tu sitio web exista, el QR funcionará.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TARJETA 2: Diseño del QR -->
+            <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800">
+                    <i class="ph-fill ph-palette text-pink-500"></i>
+                    Personalización Premium
+                </h2>
+                
+                <form id="design-form" class="space-y-6">
+                    <!-- Colores -->
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Color del Código</label>
+                            <div class="flex items-center gap-2">
+                                <input type="color" id="qr-color" value="#0f172a">
+                                <span class="text-xs text-slate-500 w-16 uppercase font-mono" id="qr-color-hex">#0F172A</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Color de Fondo</label>
+                            <div class="flex items-center gap-2">
+                                <input type="color" id="bg-color" value="#ffffff">
+                                <span class="text-xs text-slate-500 w-16 uppercase font-mono" id="bg-color-hex">#FFFFFF</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estilos de forma -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Estilo de Puntos</label>
+                            <select id="dots-style" class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-pink-500 outline-none transition-all">
+                                <option value="square">Cuadrados (Clásico)</option>
+                                <option value="rounded" selected>Redondeados</option>
+                                <option value="dots">Puntos circulares</option>
+                                <option value="classy">Elegante</option>
+                                <option value="classy-rounded">Elegante Redondeado</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Estilo de Esquinas</label>
+                            <select id="corners-style" class="w-full rounded-lg border-slate-300 border bg-slate-50 px-4 py-2.5 focus:bg-white focus:ring-2 focus:ring-pink-500 outline-none transition-all">
+                                <option value="square">Cuadradas</option>
+                                <option value="extra-rounded" selected>Extra Redondeadas</option>
+                                <option value="dot">Puntos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Logo Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Logo Central (Opcional)</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 border-dashed rounded-lg hover:border-indigo-400 transition-colors bg-slate-50 relative group">
+                            <div class="space-y-1 text-center">
+                                <i class="ph ph-image text-4xl text-slate-400 group-hover:text-indigo-500 transition-colors"></i>
+                                <div class="flex text-sm text-slate-600 justify-center">
+                                    <label for="logo-upload" class="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                        <span>Sube tu Logo</span>
+                                        <input id="logo-upload" name="logo-upload" type="file" accept="image/*" class="sr-only">
+                                    </label>
+                                </div>
+                                <p class="text-xs text-slate-500">PNG o JPG para personalizar tu QR</p>
+                            </div>
+                        </div>
+                        <!-- Vista Previa del Logo Subido -->
+                        <div id="logo-preview-container" class="hidden mt-3 flex items-center justify-between p-3 bg-slate-100 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <img id="logo-preview-img" src="" alt="Logo" class="h-10 w-10 object-cover rounded-md shadow-sm border border-slate-200 bg-white">
+                                <span class="text-sm font-medium text-slate-700 truncate w-32" id="logo-filename">logo.png</span>
+                            </div>
+                            <button type="button" id="remove-logo" class="text-red-500 hover:text-red-700 p-2 rounded-md hover:bg-red-50 transition-colors" title="Eliminar Logo">
+                                <i class="ph ph-trash text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- COLUMNA DERECHA: Vista Previa y Descargas -->
+        <div class="w-full lg:w-1/3 lg:sticky lg:top-8 space-y-6">
+            
+            <section class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden flex flex-col items-center">
+                
+                <!-- Encabezado de la tarjeta -->
+                <div class="w-full bg-slate-900 p-4 text-center border-b border-slate-800 flex justify-center items-center gap-2">
+                    <div class="flex space-x-1">
+                        <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-slate-400 text-xs font-mono ml-2">Vista Previa</span>
+                </div>
+
+                <!-- Contenedor del QR -->
+                <div class="p-8 pb-4 w-full flex justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNlMmU4ZjAiLz48L3N2Zz4=')]">
+                    <div id="qr-canvas-container" class="bg-white rounded-2xl shadow-lg border border-slate-100 p-3 transition-transform duration-300 hover:scale-105">
+                        <!-- El QR se inyecta aquí -->
+                    </div>
+                </div>
+
+                <div class="px-6 pb-6 pt-2 w-full text-center">
+                    <p class="text-sm font-medium text-slate-800 break-all bg-slate-100 py-2 px-3 rounded-lg border border-slate-200" id="display-qr-url">https://</p>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="w-full p-6 bg-slate-50 border-t border-slate-100 space-y-3">
+                    <button id="download-png" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-xl shadow-sm transition-all flex justify-center items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="ph-bold ph-download-simple text-lg"></i>
+                        Descargar QR (PNG)
+                    </button>
+                    <button id="download-svg" class="w-full bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 font-medium py-3 px-4 rounded-xl shadow-sm transition-all flex justify-center items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="ph-bold ph-bezier-curve text-lg"></i>
+                        Descargar QR Vectorial (SVG)
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notificación Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl transform transition-all duration-300 translate-y-20 opacity-0 flex items-center gap-3 z-50">
+        <i id="toast-icon" class="ph-fill ph-check-circle text-xl text-green-400"></i>
+        <span id="toast-message" class="font-medium text-sm">Mensaje</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Referencias DOM
+            const linkUrlInput = document.getElementById('link-url');
+            const displayQrUrl = document.getElementById('display-qr-url');
+            
+            // Referencias Diseño
+            const qrColor = document.getElementById('qr-color');
+            const bgColor = document.getElementById('bg-color');
+            const dotsStyle = document.getElementById('dots-style');
+            const cornersStyle = document.getElementById('corners-style');
+            const qrColorHex = document.getElementById('qr-color-hex');
+            const bgColorHex = document.getElementById('bg-color-hex');
+            
+            // Referencias Logo
+            const logoUpload = document.getElementById('logo-upload');
+            const removeLogoBtn = document.getElementById('remove-logo');
+            const logoPreviewContainer = document.getElementById('logo-preview-container');
+            const logoPreviewImg = document.getElementById('logo-preview-img');
+
+            let currentLogoBase64 = null;
+
+            // 1. Inicializar Código QR (Usando la config premium de NextContact)
+            const qrConfigOptions = {
+                width: 250,
+                height: 250,
+                type: "svg", // SVG para la vista web (rápido y nítido)
+                data: "https://",
+                margin: 5,
+                qrOptions: {
+                    typeNumber: 0,
+                    mode: "Byte",
+                    errorCorrectionLevel: "H" // Nivel Alto (H) permite que el logo cubra hasta un 30% del QR sin romperlo
+                },
+                imageOptions: {
+                    hideBackgroundDots: true,
+                    imageSize: 0.4, // El logo ocupará el 40%
+                    margin: 5,
+                    crossOrigin: "anonymous",
+                },
+                dotsOptions: {
+                    color: "#0f172a",
+                    type: "rounded"
+                },
+                backgroundOptions: {
+                    color: "#ffffff",
+                },
+                cornersSquareOptions: {
+                    type: "extra-rounded",
+                    color: "#0f172a"
+                },
+                cornersDotOptions: {
+                    type: "dot",
+                    color: "#0f172a"
+                }
+            };
+
+            const qrCode = new QRCodeStyling(qrConfigOptions);
+            qrCode.append(document.getElementById("qr-canvas-container"));
+
+            // 2. Función para actualizar el QR
+            function updateQR() {
+                // Limpiar y asegurar que la URL sea válida o un placeholder seguro
+                let rawUrl = linkUrlInput.value.trim();
+                if(rawUrl === "" || rawUrl === "https://") {
+                    rawUrl = "https://"; // Minimal fallback
+                    displayQrUrl.textContent = "Ingresa un enlace...";
+                    displayQrUrl.classList.add('text-slate-400');
+                } else {
+                    displayQrUrl.textContent = rawUrl.length > 35 ? rawUrl.substring(0, 35) + "..." : rawUrl;
+                    displayQrUrl.classList.remove('text-slate-400');
+                }
+
+                // Obtener colores
+                const fColor = qrColor.value;
+                const bColor = bgColor.value;
+                
+                // Actualizar textos HEX
+                qrColorHex.textContent = fColor;
+                bgColorHex.textContent = bColor;
+
+                // Aplicar actualización
+                qrCode.update({
+                    data: rawUrl,
+                    image: currentLogoBase64 || "",
+                    dotsOptions: { 
+                        color: fColor, 
+                        type: dotsStyle.value 
+                    },
+                    backgroundOptions: { 
+                        color: bColor 
+                    },
+                    cornersSquareOptions: { 
+                        color: fColor, 
+                        type: cornersStyle.value 
+                    },
+                    cornersDotOptions: { 
+                        color: fColor, 
+                        type: "dot" // Mantener el punto central legible
+                    }
+                });
+            }
+
+            // 3. Sistema Debounce (Para evitar renderizar el QR 100 veces por segundo al teclear)
+            function debounce(func, wait) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+            const debouncedUpdate = debounce(updateQR, 150);
+
+            // 4. Escuchar Cambios en la Interfaz
+            linkUrlInput.addEventListener('input', debouncedUpdate);
+            qrColor.addEventListener('input', debouncedUpdate);
+            bgColor.addEventListener('input', debouncedUpdate);
+            dotsStyle.addEventListener('change', updateQR);
+            cornersStyle.addEventListener('change', updateQR);
+
+            // 5. Manejo del Logo (Igual que en el Generador vCard)
+            logoUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Limitar tamaño a 2MB
+                    if(file.size > 2000000) {
+                        showToast("El archivo es muy grande. Máximo 2MB.", "error");
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        currentLogoBase64 = event.target.result;
+                        logoPreviewImg.src = currentLogoBase64;
+                        document.getElementById('logo-filename').textContent = file.name;
+                        logoPreviewContainer.classList.remove('hidden');
+                        updateQR(); 
+                        showToast("Logo añadido correctamente", "success");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeLogoBtn.addEventListener('click', () => {
+                currentLogoBase64 = null;
+                logoUpload.value = ''; // Limpiar el input file
+                logoPreviewContainer.classList.add('hidden');
+                updateQR();
+                showToast("Logo eliminado", "info");
+            });
+
+            // 6. Funciones de Descarga
+            document.getElementById('download-png').addEventListener('click', () => {
+                const url = linkUrlInput.value.trim();
+                if(url === "" || url === "https://"){
+                    showToast("Por favor, ingresa un enlace válido antes de descargar.", "error");
+                    return;
+                }
+
+                // Usamos la instancia actual para descargar en tamaño grande temporalmente
+                qrCode.download({ 
+                    name: "mi-qr-enlace", 
+                    extension: "png"
+                });
+                showToast("Descargando QR en PNG...", "success");
+            });
+
+            document.getElementById('download-svg').addEventListener('click', () => {
+                const url = linkUrlInput.value.trim();
+                if(url === "" || url === "https://"){
+                    showToast("Por favor, ingresa un enlace válido antes de descargar.", "error");
+                    return;
+                }
+
+                qrCode.download({ 
+                    name: "mi-qr-vectorial", 
+                    extension: "svg" 
+                });
+                showToast("Descargando QR en SVG...", "success");
+            });
+
+            // Utilidad de Notificaciones Visuales
+            function showToast(message, type = 'info') {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toast-message');
+                const toastIcon = document.getElementById('toast-icon');
+
+                toastMessage.textContent = message;
+                
+                if (type === 'success') {
+                    toastIcon.className = 'ph-fill ph-check-circle text-xl text-green-400';
+                } else if (type === 'error') {
+                    toastIcon.className = 'ph-fill ph-warning-circle text-xl text-red-400';
+                } else {
+                    toastIcon.className = 'ph-fill ph-info text-xl text-blue-400';
+                }
+
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+            }
+
+            // Llamada inicial para renderizar con valores por defecto
+            updateQR();
+        });
+    </script>
+</body>
+</html>
