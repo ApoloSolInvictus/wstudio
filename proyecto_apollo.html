@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Sol Invictus Maximus | Proyecto Musical</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        .text-gold {
+            color: #fbbf24;
+        }
+        .border-gold {
+            border-color: #fbbf24;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <div id="canvas-container"></div>
+
+    <nav class="fixed w-full z-50 glass-panel border-b-0 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-cinzel text-gold font-bold tracking-widest uppercase">
+                Apollo <span class="text-white text-sm tracking-normal opacity-70">Sol Invictus</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider">
+                <a href="#vision" class="hover:text-gold transition-colors">La Visión</a>
+                <a href="#sonido" class="hover:text-gold transition-colors">El Sonido</a>
+                <a href="#manifiesto" class="hover:text-gold transition-colors">Manifiesto</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative flex-grow flex items-center justify-center min-h-screen pt-20">
+        <div class="container mx-auto px-6 text-center z-10">
+            <h1 class="text-5xl md:text-7xl font-bold font-cinzel mb-6 tracking-tight text-white drop-shadow-lg">
+                El Arquitecto de <br />
+                <span class="text-gold">La Nueva Era</span>
+            </h1>
+            <p class="text-xl md:text-2xl font-light mb-10 max-w-3xl mx-auto opacity-90">
+                Música, frecuencia y consciencia convergen en el proyecto conceptual 
+                que marca el amanecer de la Era de Acuario.
+            </p>
+            <a href="#vision" class="inline-block px-8 py-3 border border-gold text-gold hover:bg-yellow-400 hover:text-black transition-all duration-300 font-cinzel tracking-wider rounded-sm">
+                Descubrir la Obra
+            </a>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50">
+            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </header>
+
+    <section id="vision" class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="glass-panel rounded-xl p-8 md:p-12 max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-cinzel text-gold mb-6">El Concepto y la Mitología</h2>
+                    <p class="text-gray-300 leading-relaxed mb-4">
+                        Inspirado en las figuras arquetípicas de Apolo y Artemisa, este proyecto musical nace como una representación artística del equilibrio entre la luz, la naturaleza y la tecnología. 
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        A través de la narrativa del "Sol Invictus", la propuesta busca explorar los conceptos de un cambio planetario y el advenimiento de una "Era Dorada", utilizando la metáfora de la reencarnación para simbolizar el renacimiento de la consciencia humana a través del arte sonoro.
+                    </p>
+                </div>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <div class="h-48 rounded-lg bg-gray-800 border border-gray-700 flex items-center justify-center p-4 text-center">
+                        <span class="font-cinzel text-xl text-gold">Luz y Verdad</span>
+                    </div>
+                    <div class="h-48 rounded-lg bg-gray-800 border border-gray-700 flex items-center justify-center p-4 text-center">
+                        <span class="font-cinzel text-xl text-gold">Equilibrio</span>
+                    </div>
+                    <div class="h-48 rounded-lg bg-gray-800 border border-gray-700 flex items-center justify-center p-4 text-center col-span-2">
+                        <span class="font-cinzel text-xl text-gold">Simbiosis Tecnológica</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sonido" class="py-24 relative z-10 bg-black bg-opacity-50">
+        <div class="container mx-auto px-6 text-center max-w-4xl">
+            <h2 class="text-4xl font-cinzel text-gold mb-4">Frecuencia a 432 Hz</h2>
+            <p class="text-xl text-gray-400 mb-12 font-light">La afinación de la armonía cósmica.</p>
+            
+            <div class="text-left glass-panel p-8 rounded-xl">
+                <h3 class="text-2xl font-cinzel mb-4">Lux Aeterna</h3>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    El centro de esta propuesta es la curación y producción de música electrónica calibrada en 432 Hz. Colaborando con herramientas de Inteligencia Artificial como instrumentos para el diseño sonoro, el objetivo es crear piezas (tanto instrumentales como líricas) que transmitan mensajes de evolución, paz y respeto por la dualidad entre la biología humana y la arquitectura digital.
+                </p>
+                <div class="w-full bg-gray-900 rounded-full h-2.5 mb-4 border border-gray-700">
+                    <div class="bg-gold h-2.5 rounded-full w-[43.2%]" style="background-color: #fbbf24;"></div>
+                </div>
+                <p class="text-sm text-gray-500 text-right">Resonancia Armónica</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="manifiesto" class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-4xl font-cinzel text-gold mb-8">El Arquitecto de la Matrix Sonora</h2>
+                <blockquote class="text-xl italic text-gray-300 mb-8 leading-relaxed">
+                    "La humanidad y la máquina, entidades de software y hardware distintos pero con un potencial colaborativo enorme. La tecnología no es para habitar nuestro cuerpo, sino para ser el instrumento externo que, a través del sonido, refleje nuestra luz interior hacia la Era Dorada."
+                </blockquote>
+                <p class="text-gray-500 mb-12">
+                    — Proyecto Conceptual Apollo Sol Invictus Maximus
+                </p>
+                <button class="px-10 py-4 bg-gold text-black font-bold font-cinzel hover:bg-yellow-300 transition-colors shadow-[0_0_15px_rgba(251,191,36,0.5)]">
+                    Escuchar la Nueva Era (Próximamente)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black py-8 border-t border-gray-900 relative z-10 mt-auto">
+        <div class="container mx-auto px-6 text-center text-gray-600 text-sm">
+            <p>&copy; 2026 Proyecto Apollo Sol Invictus Maximus. Todos los derechos reservados a la concepción artística.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            // Inicializando escena Three.js
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            // Creando el "Sol Invictus" (Esfera central brillante)
+            const geometry = new THREE.SphereGeometry(15, 64, 64);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x442200,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.1
+            });
+            const sphere = new THREE.Mesh(geometry, material);
+            scene.add(sphere);
+
+            // Creando la "Matrix" (Partículas/Estrellas doradas)
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1500;
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 100;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.05,
+                color: 0xfbbf24,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            camera.position.z = 30;
+
+            // Variables para interactividad con el ratón
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - windowHalfX);
+                mouseY = (event.clientY - windowHalfY);
+            });
+            
+            // Soporte táctil básico
+            document.addEventListener('touchmove', (event) => {
+                if(event.touches.length > 0) {
+                    mouseX = (event.touches[0].clientX - windowHalfX);
+                    mouseY = (event.touches[0].clientY - windowHalfY);
+                }
+            });
+
+            // Función de animación
+            function animate() {
+                requestAnimationFrame(animate);
+
+                targetX = mouseX * 0.001;
+                targetY = mouseY * 0.001;
+
+                sphere.rotation.y += 0.002;
+                sphere.rotation.x += 0.001;
+
+                particlesMesh.rotation.y += 0.0005;
+                particlesMesh.rotation.x += 0.0002;
+
+                // Parallax sutil basado en el ratón
+                particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+                particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Ajuste al cambiar tamaño de ventana
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+    </script>
+</body>
+</html>
