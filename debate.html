@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolución Financiera | El Manifiesto del Dinero Real</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712; /* Tailwind gray-950 */
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(55, 65, 81, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+        .glow-text {
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Animación para el gráfico falso de crypto cayendo */
+        @keyframes crash {
+            0% { transform: translateY(0) scaleY(1); opacity: 1; }
+            50% { transform: translateY(20px) scaleY(0.5); opacity: 0.8; }
+            100% { transform: translateY(50px) scaleY(0.1); opacity: 0.2; color: #ef4444; }
+        }
+        .animate-crash {
+            animation: crash 3s infinite alternate ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <div class="bg-grid"></div>
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 glass-card border-b-0 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-wider flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <span>ECONOMÍA <span class="text-blue-500">DIGITAL</span></span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-sm font-semibold text-gray-300">
+                <a href="#realidad" class="hover:text-blue-400 transition-colors">La Realidad Cripto</a>
+                <a href="#solucion" class="hover:text-blue-400 transition-colors">El Sistema Probado</a>
+                <a href="#ejemplo" class="hover:text-blue-400 transition-colors">Casos de Uso</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header / Hero -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 flex items-center justify-center text-center px-6">
+        <div class="max-w-4xl mx-auto z-10">
+            <div class="inline-block px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-sm font-semibold mb-6">
+                El Despertar Financiero Global
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-xl">
+                El Futuro del Dinero <br/>
+                <span class="gradient-text">Ya Fue Inventado.</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Más allá de la especulación y las burbujas vacías, existe un ecosistema financiero digital que funciona, respalda el comercio global y ofrece liquidez inmediata. Es hora de hablar de la realidad.
+            </p>
+            <a href="#realidad" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                Descubrir la Verdad
+                <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sección 1: La Crítica a Crypto -->
+    <section id="realidad" class="py-20 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="glass-card rounded-3xl p-8 md:p-12 max-w-6xl mx-auto">
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <div class="lg:w-1/2">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-red-400">La Pregunta del Billón de Dólares</h2>
+                        <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                            ¿En qué están basadas las miles de criptomonedas para tener valor real sin ningún respaldo económico detrás? Vemos monedas que alcanzan picos altísimos impulsadas por la especulación, para luego colapsar y desaparecer, llevándose consigo el esfuerzo y la inversión de millones.
+                        </p>
+                        <ul class="space-y-4 text-gray-400">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-red-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                <span><strong>Cero Respaldo:</strong> No representan bienes, servicios, ni la productividad de ninguna nación.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-red-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                <span><strong>El Cementerio Digital:</strong> Miles de proyectos creados diariamente que se esfuman sin dejar rastro regulatorio.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-red-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                <span><strong>Inutilidad Práctica:</strong> ¿Quién paga su supermercado hoy con estas monedas hiper-volátiles? Casi nadie.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:w-1/2 w-full bg-gray-900/50 rounded-2xl p-6 border border-red-500/20 flex flex-col items-center justify-center min-h-[300px]">
+                        <!-- Gráfico simulado -->
+                        <div class="text-gray-500 mb-4 font-mono text-sm tracking-widest uppercase">Especulación Gráfica</div>
+                        <div class="flex items-end space-x-2 h-40 w-full justify-center">
+                            <div class="w-8 bg-green-500 rounded-t-sm h-12 opacity-50"></div>
+                            <div class="w-8 bg-green-500 rounded-t-sm h-24 opacity-70"></div>
+                            <div class="w-8 bg-green-400 rounded-t-sm h-32 glow-text"></div>
+                            <div class="w-8 bg-red-500 rounded-t-sm h-20 animate-crash"></div>
+                            <div class="w-8 bg-red-600 rounded-t-sm h-8 opacity-50"></div>
+                            <div class="w-8 bg-gray-700 rounded-t-sm h-2 opacity-30"></div>
+                        </div>
+                        <p class="text-red-400 mt-6 text-center font-bold">Boom y Colapso: El ciclo sin fin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 2: La Solución Probada (PayPal / Fintech) -->
+    <section id="solucion" class="py-20 relative z-10 bg-blue-900/10 border-y border-blue-500/20">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-white">El Paradigma <span class="text-blue-500">Probado</span></h2>
+                <p class="text-xl text-gray-400">
+                    El concepto de transferir valor al instante y de forma global ya fue materializado a finales de los 90s. Plataformas como PayPal sentaron las bases del dinero digital conectado a la economía real.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-2xl text-center hover:border-blue-500/50 transition-colors">
+                    <div class="w-16 h-16 mx-auto bg-blue-500/20 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Seguridad y Respaldo</h3>
+                    <p class="text-gray-400 text-sm">El dinero está anclado a divisas reales (USD, EUR) y protegido por regulaciones internacionales, bancos e instituciones establecidas.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-2xl text-center hover:border-blue-500/50 transition-colors border-blue-500/30">
+                    <div class="w-16 h-16 mx-auto bg-blue-500/20 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Velocidad y Globalización</h3>
+                    <p class="text-gray-400 text-sm">La red de pagos permite que el dinero viaje de un continente a otro en segundos, funcionando esencialmente como una "moneda global" digital de facto.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-2xl text-center hover:border-blue-500/50 transition-colors">
+                    <div class="w-16 h-16 mx-auto bg-blue-500/20 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Interconectividad</h3>
+                    <p class="text-gray-400 text-sm">Se enlaza directamente con tarjetas de débito, crédito y cuentas bancarias locales, integrando el mundo digital con la economía de a pie.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: Caso de Uso Real (Wink CR) -->
+    <section id="ejemplo" class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto glass-card rounded-3xl p-1 relative overflow-hidden">
+                <!-- Efecto de borde brillante -->
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-green-500 opacity-20"></div>
+                
+                <div class="relative bg-gray-900 rounded-[22px] p-8 md:p-12 flex flex-col md:flex-row gap-10 items-center z-10">
+                    <div class="md:w-1/2">
+                        <h2 class="text-3xl font-bold mb-4 text-white">El Ecosistema en Acción</h2>
+                        <h3 class="text-xl text-blue-400 mb-6">Ejemplo Práctico: <span class="font-bold text-white">Wink Costa Rica + PayPal</span></h3>
+                        <p class="text-gray-300 mb-4 leading-relaxed">
+                            No necesitamos reinventar la rueda financiera con algoritmos complejos que drenan energía. El sistema actual ya permite una integración perfecta y libre de fricción.
+                        </p>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            Un creador o comerciante recibe pagos globales vía PayPal en USD. Utilizando la app Wink, puede trasladar esos fondos instantáneamente a su moneda local (Colones) o mantenerlos en dólares, listos para ser retirados en un cajero automático o usados con una tarjeta de débito en cualquier comercio.
+                        </p>
+                        <div class="flex items-center gap-4 text-sm font-semibold text-green-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Cero especulación. Dinero real. Liquidez inmediata.
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="relative w-64 h-96 bg-black rounded-[2rem] border-4 border-gray-800 shadow-2xl flex flex-col overflow-hidden">
+                            <!-- Simulación de interfaz móvil -->
+                            <div class="h-6 w-full bg-gray-800 flex justify-center items-center">
+                                <div class="w-20 h-4 bg-black rounded-b-xl"></div>
+                            </div>
+                            <div class="flex-1 p-6 bg-gradient-to-b from-gray-900 to-black flex flex-col justify-center gap-6">
+                                <div class="glass-card p-4 rounded-xl flex items-center justify-between border-blue-500/30">
+                                    <span class="font-bold text-blue-400">PayPal</span>
+                                    <span class="text-white font-mono">$1,250.00</span>
+                                </div>
+                                <div class="flex justify-center text-gray-500">
+                                    <svg class="w-8 h-8 animate-bounce text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                                </div>
+                                <div class="glass-card p-4 rounded-xl flex items-center justify-between border-green-500/30">
+                                    <span class="font-bold text-green-400">App Local (Wink)</span>
+                                    <span class="text-white font-mono">₡650,000.00</span>
+                                </div>
+                                <button class="w-full py-3 mt-4 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors">
+                                    Retirar a Tarjeta
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto bg-black py-10 border-t border-gray-900 relative z-10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold mb-4">La Arquitectura de la Razón</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto mb-8 text-sm">
+                La verdadera revolución no está en crear dinero ficticio para especular, sino en utilizar las herramientas tecnológicas que ya conectan y empoderan al ser humano mediante sistemas seguros, confiables y con valor real tangible.
+            </p>
+            <div class="text-gray-600 text-xs uppercase tracking-widest">
+                &copy; 2026 Plataforma de Consciencia y Razón
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
